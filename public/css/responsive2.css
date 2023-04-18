@@ -1,0 +1,12 @@
+@media only screen and (max-width: 1200px) {
+
+.first_column h5, .last_column h5 {
+    font-size: 16px;
+}
+.first_column ,.last_column  {
+    padding: 8px 8px;
+}
+.digit-pera {
+    font-size: 14px;
+}
+}

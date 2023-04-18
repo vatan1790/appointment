@@ -1,0 +1,210 @@
+@media (min-width: 991.98px) {
+    ::-webkit-scrollbar {
+        height: 10px;
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        height: 5px;
+        background-color: #A5A5A5;
+        border-radius: 30px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #A5A5A5;
+    }
+}
+
+@media (max-width: 1399.98px) {}
+
+@media (max-width: 1199.98px) {}
+
+@media (max-width: 991.98px) {
+    .navbar-toggler {
+        padding: 0;
+        border-radius: 0;
+        border: 0;
+        background: none;
+        width: 34px;
+        box-shadow: none !important;
+    }
+
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        background: #fff;
+        z-index: 99;
+        width: 100%;
+        left: 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+    }
+
+    .navbar-collapse .navbar-nav {
+        padding: 10px;
+        flex-direction: row;
+        justify-content: end;
+    }
+
+    .header .navbar-expand-lg .navbar-nav .nav-item {
+        display: inline-block;
+    }
+    .bar-chart-main{
+        padding-left: 30px;
+    }
+    .calender-listing{
+        width: calc(100% - 30px);
+    }
+    .header {
+        padding: 20px 30px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .bar-chart-main{
+        padding-left: 15px;
+    }
+    .calender-listing {
+        width: calc(100% - 15px);
+    }
+    .header {
+        padding: 10px 15px;
+    }
+    .bar-chart-listing{
+        margin-left: 110px;
+    }
+    .show .user-data-main{
+        height: calc(100vh - 310px);
+    }
+    .user-data-main{
+        top: 310px;
+    }
+    .data-collapse::before{
+        height: calc(100vh - 310px);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .common-modal .modal-dialog{
+        width: 340px;
+    }
+    .theme-btn{
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    .bar-chart-main .bar-timings{
+        left: 10px;
+    }
+    .bar-chart-listing {
+        margin-left: 60px;
+    }
+    .bar-chart-listing .appointment-list .user-img p span{
+        font-size: 12px;
+    }
+    .bar-chart-listing .appointment-list .user-img p span:nth-child(3) {
+        margin-left: 10px;
+    }
+    .technician-list ul li p{
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .heading-20-white{
+        font-size: 18px;
+    }
+    .working-time .hours{
+        grid-template-columns: repeat(7, 1fr);
+    }
+    .avoid-service-list li p{
+        padding: 5px 20px 5px 10px;
+        font-size: 13px;
+    }
+    .common-modal .form-control, .booking-body .form-control{
+        font-size: 14px;
+    }
+    .avoid-services .list .main-category a{
+        font-size: 16px;
+    }
+    .c-checkbox p{
+        font-size: 14px;
+    }
+    .ui-datepicker-calendar th span{
+        font-size: 14px;
+    }
+    .ui-datepicker-calendar .ui-state-default{
+        font-size: 14px;
+    }
+    .ui-timepicker-wrapper{
+        width: 145px;
+    }
+    .time-from-to .form-group .form-control{
+        font-size: 14px;
+    }
+    .recenet-box .name-indicate h6{
+        font-size: 16px;
+    }
+    .recenet-box .time{
+        font-size: 13px;
+    }
+    .notification-list ul li p{
+        font-size: 13px;
+    }
+    .notification-list ul li span{
+        font-size: 11px;
+    }
+    .header .navbar-expand-lg .navbar-nav .nav-item+.nav-item {
+        margin-left: 15px;
+    }
+    .header .navbar-expand-lg .navbar-nav .nav-item .nav-link img{
+        width: 20px;
+        height: 20px;
+    }
+    .header .navbar-expand-lg .navbar-nav .nav-item .nav-link{
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .white-yellow-box .yellow-box p{
+        font-size: 14px;
+    }
+    .white-yellow-box .yellow-box h4{
+        font-size: 18px
+    }
+    .white-yellow-box .white-box ul li p{
+        font-size: 14px;
+    }
+    .white-yellow-box .white-box ul li h5{
+        font-size: 18px;
+    }
+    .last-activity-list{
+        margin-top: 20px !important;
+    }
+    .last-activity-list .box p{
+        font-size: 14px;
+    }
+    .last-activity-list .box p span{
+        font-size: 15px;
+    }
+    .last-activity-list .box h5{
+        font-size: 16px;
+    }
+    .white-yellow-box .yellow-box .form-control{
+        min-width: 120px;
+    }
+    .white-yellow-box .white-box ul li h5{
+        font-size: 16px;
+    }
+    .memo-text .box p{
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .memo-text .box h6{
+        font-size: 14px;
+    }
+    .service-box h6{
+        font-size: 16px;
+    }
+}
