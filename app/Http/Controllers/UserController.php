@@ -19,14 +19,17 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class UserController extends Controller
 {
     public function register(Request $request){
+            $message = array();
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6',
-            ]);
+            ], $message);
 
             if($validator->fails()){
-                return response()->json($validator->errors()->toJson(), 400);
+                $message = $validator->messages()->all();
+           
+                return response()->json( $message , 400);
             }
             $user = User::create([
                 'name' => $request->name,

@@ -1,5 +1,5 @@
 <template>
-        
+         
   <header class="header">
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid p-0">
@@ -898,12 +898,12 @@
             <h3><img src="images/service.svg" alt="New category"> New category</h3>
           </div>
           <div class="add-new-category">
-            <form action="">
+            <form v-on:submit.prevent="save_category">
               <div class="form-group">
                 <h3>Category name</h3>
                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
                 </p>
-                <input type="text" placeholder="Type" class="form-control">
+                <input type="text" placeholder="Type" name="name" class="form-control" v-model="form.name">
               </div>
               <div class="form-group">
                 <h3>Choose color</h3>
@@ -911,35 +911,35 @@
                 </p>
                 <div class="choose-color">
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" value="orange" class="d-none" v-model="form.color">
                     <span class="checker orange-bg"></span>
                   </label>
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" class="d-none" value="purple"  v-model="form.color">
                     <span class="checker purple-bg"></span>
                   </label>
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" class="d-none" value="darkblue"  v-model="form.color">
                     <span class="checker darkblue-bg"></span>
                   </label>
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" class="d-none" value="lightblue"  v-model="form.color">
                     <span class="checker lightblue-bg"></span>
                   </label>
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" class="d-none" value="lightgreen"  v-model="form.color">
                     <span class="checker lightgreen-bg"></span>
                   </label>
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" class="d-none" value="yellow"  v-model="form.color">
                     <span class="checker yellow-bg"></span>
                   </label>
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" class="d-none" value="burgundy"  v-model="form.color">
                     <span class="checker burgundy-bg"></span>
                   </label>
                   <label class="color-btn">
-                    <input type="radio" name="color" class="d-none">
+                    <input type="radio" name="color" class="d-none" value="darkgreen"  v-model="form.color">
                     <span class="checker darkgreen-bg"></span>
                   </label>
                 </div>
@@ -1523,18 +1523,24 @@
           <div class="heading">
             <h3><img src="images/customer.svg" alt="New Customer">New Customer</h3>
           </div>
-          
-          <form action="">
+          <span class="text-danger" v-for="(errorArray, idx) in notifmsg" :key="idx">
+              <span v-for="(allErrors, idx) in errorArray" :key="idx">
+                  <span class="text-danger">{{ allErrors}} </span>
+              </span>
+          </span>
+          <br>
+          <form v-on:submit.prevent="save_customer">
             <div class="new-customer-main d-flex flex-column">
               <div class="new-customer-form">
                 <div class="form-group-50">
-                  <input type="text" class="form-control" placeholder="First name">
+                  <input type="text" class="form-control" name="fname"  placeholder="First name" v-model="form.fname">
+                  
                 </div>
                 <div class="form-group-50">
-                  <input type="text" class="form-control" placeholder="Last name">
+                  <input type="text" class="form-control" name="lname"  placeholder="Last name" v-model="form.lname">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Phone">
+                  <input type="text" class="form-control" name="phone" placeholder="Phone" v-model="form.phone">
                 </div>
               </div>
     
@@ -2035,18 +2041,130 @@
     </div>
   </div>
 </template>
- 
  <script>
+ import axios from 'axios'
+ import Swal from 'sweetalert2'
+ import router from '../router'
+ export default {
+   
  
-import GoogleChart from './GoogleChart.vue'
-     export default {
-        name: 'App',
-        components: {
-            GoogleChart
-        }
+   data(){
+   return {
+    
+     notifmsg: '',
+     form:{
+       fname:'',
+       lname: '',
+       phone:'',
+       color:'',
      }
+   }
+ },
+   methods:{
+     //user login function and api call
+     save_category(){
+     
+     axios
+     .post('/api/category',
+      {
+        name: this.form.name,
+        color: this.form.color,
+      },
+      {
+          headers: {
+              "Authorization": "Bearer "+localStorage.getItem('usertoken'),
+              "Accept": "application/json",
+          },
+      }
+     )
+     .then((resp) =>{
+        this.form.name = '';
+        this.form.color = '';
+        if(resp['data']['category'])
+        {
+        
+             this.name = ''
+             this.color = ''
+             Swal.fire({
+                title: 'Good job!',
+                text:   "Category Create Successfully!",
+                icon: 'success',
+              
+            });
+        }
+        else
+        {
 
-     $(document).ready(function(){
+         Swal.fire({
+           title: 'OPPS',
+           text:   "error",
+           icon: 'warning',
+         
+       });
+          
+        }
+         
+     })
+     .catch(e => {
+      this.notifmsg = e.response.data
+     })
+   },
+     save_customer(){
+     
+       axios
+       .post('/api/customer',
+        {
+          fname: this.form.fname,
+          lname: this.form.lname,
+          phone: this.form.phone,
+        },
+        {
+            headers: {
+                "Authorization": "Bearer "+localStorage.getItem('usertoken'),
+                "Accept": "application/json",
+            },
+        }
+       )
+       .then((resp) =>{
+          this.form.fname = '';
+          this.form.lname = '';
+          this.form.phone = '';
+          if(resp['data']['customer'])
+          {
+          
+               this.fname = ''
+               this.lname = ''
+               this.phone = ''
+               Swal.fire({
+                  title: 'Good job!',
+                  text:   "Customer Create Successfully!",
+                  icon: 'success',
+                
+              });
+          }
+          else
+          {
+ 
+           Swal.fire({
+             title: 'OPPS',
+             text:   "error",
+             icon: 'warning',
+           
+         });
+            
+          }
+           
+       })
+       .catch(e => {
+        this.notifmsg = e.response.data
+       })
+     }
+   }
+   
+ }
+
+ 
+ $(document).ready(function(){
         $("#desktop").click(function(){
             $("#sideBarMenu").fadeToggle();
         });
@@ -2056,5 +2174,4 @@ import GoogleChart from './GoogleChart.vue'
         });
 
     });
- </script>
-        
+ </script>       

@@ -22,22 +22,25 @@ const routes= [
     {
         path: '/',
         name: 'login',
-        component: Login
+        component: Login,
+       
     },
     {
         path: '/register',
         name: 'register',
         component: Register,
+       
     },
     {
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard,
+        
     },
     {
         path: '/page2',
         name: 'page2',
-        component: Page2,
+        component: Page2,        
     },
     {
         path: '/page3',
