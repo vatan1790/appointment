@@ -46,7 +46,7 @@ class UserController extends Controller
     public function login(Request $request){
         $credentials = $request->all();
         try {
-            if(! $token = JWTAuth::attempt($credentials)){
+            if(! $token = JWTAuth::attempt($credentials,['exp' => strtotime(date('Y-m-d',strtotime('+ 7 days')))])){
                     return response()->json(['error'=>'invalid Credentials'], 400);
             }
         }catch (JWTException $e){

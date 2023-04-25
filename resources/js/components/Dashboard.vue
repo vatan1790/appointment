@@ -849,36 +849,43 @@
             <h3><img src="images/service.svg" alt="New service"> New service</h3>
           </div>
           <div class="add-service-form">
-            <form action="">
+            <span class="text-danger" v-for="(errorArray, idx) in notifmsg_s" :key="idx">
+              <span v-for="(allErrors, idx) in errorArray" :key="idx">
+                  <span class="text-danger">{{ allErrors}} </span>
+              </span>
+            </span>
+            <br>
+            <form @submit="formSubmit" enctype="multipart/form-data" >
               <div class="service-img text-center">
                 <label class="mx-auto">
-                  <input type="file" class="d-none">
+                  
+                  <input type="file" name="file" class="d-none"  v-on:change="onChange" >
                   <img src="images/dummy-img.png" alt="Default">
                 </label>
                 <p>Service image</p>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Name">
+                <input type="text" class="form-control" placeholder="Name" name="service_name" id="service_name" v-model="form.service_name">
               </div>
               <div class="form-group form-group-50 text-form-group">
-                <input type="text" class="form-control" placeholder="Durations">
+                <input type="tel" class="form-control" placeholder="Durations" name="duration" v-model="form.duration">
                 <p>mins</p>
               </div>
               <div class="form-group form-group-50 text-form-group">
-                <input type="text" class="form-control" placeholder="Price">
+                <input type="tel" class="form-control" placeholder="Price" name="price" v-model="form.price">
                 <p>$</p>
               </div>
               <div class="form-group">
-                <textarea class="form-control" placeholder="Description"></textarea>
+                <textarea class="form-control" placeholder="Description" name="description" v-model="form.description"></textarea>
               </div>
               <label class="c-checkbox">
-                <input type="checkbox" class="d-none">
+                <input type="checkbox" class="d-none" checked value="1" name="status"  v-model="form.status">
                 <span class="checker"></span>
                 <p>Don't show this service on website</p>
               </label>
               <div class="modal-btns d-flex">
-                <button class="theme-btn white-btn">Cancel</button>
-                <button type="submit" class="theme-btn yellow-btn">Create</button>
+                <!-- <button class="theme-btn white-btn">Cancel</button> -->
+                <button class="theme-btn yellow-btn">Create</button>
               </div>
             </form>
           </div>
@@ -966,17 +973,23 @@
             <h3><img src="images/service.svg" alt="New Package">New Package</h3>
           </div>
           <div class="add-service-form">
-            <form action="">
+            <span class="text-danger" v-for="(errorArray, idx) in notifmsg_p" :key="idx">
+              <span v-for="(allErrors, idx) in errorArray" :key="idx">
+                  <span class="text-danger">{{ allErrors}} </span>
+              </span>
+            </span>
+            <br>
+            <form  @submit="save_package"  enctype="multipart/form-data">
               <div class="service-img text-center">
                 <label class="mx-auto">
-                  <input type="file" class="d-none">
+                  <input type="file" class="d-none" v-on:change="onChangep" >
                   <img src="images/dummy-img.png" alt="Default">
                 </label>
                 <p>Service image</p>
               </div>
               <div class="form-group">
                 <label class="input-label">Name</label>
-                <input type="text" class="form-control" placeholder="Type">
+                <input type="text" class="form-control" name="package_name" placeholder="Type" v-model="form.package_name">
               </div>
               <div class="form-group">
                 <label class="input-label">Service</label>
@@ -1021,12 +1034,12 @@
               </div>
               <div class="form-group text-form-group">
                 <label class="input-label">Price</label>
-                <input type="text" class="form-control" placeholder="Price">
+                <input type="text" class="form-control" name="price" placeholder="Price" v-model="form.price">
                 <p>$</p>
               </div>
               <div class="modal-btns d-flex">
-                <button class="theme-btn white-btn">Cancel</button>
-                <button type="submit" class="theme-btn yellow-btn">Create</button>
+                <!-- <button class="theme-btn white-btn">Cancel</button> -->
+                <button class="theme-btn yellow-btn">Create</button>
               </div>
             </form>
           </div>
@@ -2052,63 +2065,183 @@
    return {
     
      notifmsg: '',
+     notifmsg_p: '',
+     notifmsg_s: '',
      form:{
        fname:'',
        lname: '',
        phone:'',
        color:'',
+       image:'',
+       service_name:'',
+       duration:'',
+       description:'',
+       status:'',
+       price:'',
+       package_name:''
      }
    }
  },
    methods:{
-     //user login function and api call
-     save_category(){
-     
-     axios
-     .post('/api/category',
-      {
-        name: this.form.name,
-        color: this.form.color,
+      onChange(e) {
+        this.file = e.target.files[0];
       },
-      {
+      onChangep(e) {
+        this.filep = e.target.files[0];
+      },
+      formSubmit(e){
+        e.preventDefault();
+        let existingObj = this;
+        const config = {
+            headers: {
+                "Authorization": "Bearer "+localStorage.getItem('usertoken'),
+                "Accept": "application/json",
+                'content-type': 'multipart/form-data',
+            }
+        }
+        let data = new FormData();
+        data.append('image', this.file);
+        data.append('service_name',  this.form.service_name);
+        data.append('duration',  this.form.duration);
+        data.append('price',  this.form.price);
+        data.append('description', this.form.description);
+        data.append('status',  this.form.status);
+        axios
+        .post('/api/service', data, config)
+        .then((resp) =>{
+            this.form.service_name = '';
+            this.form.duration = '';
+            this.form.price = '';
+            this.form.description = '';
+            this.form.status = '';
+            this.file = '';
+            if(resp['data']['service'])
+            {
+            
+                this.name = ''
+                this.color = ''
+                Swal.fire({
+                    title: 'Good job!',
+                    text:   "Service Create Successfully!",
+                    icon: 'success',
+                  
+                });
+            }
+            else
+            {
+
+            Swal.fire({
+              title: 'OPPS',
+              text:   "error",
+              icon: 'warning',
+            
+          });
+              
+            }
+            
+        })
+        .catch(e => {
+          this.notifmsg_s = e.response.data
+        })
+      },
+
+      save_package(e){
+      e.preventDefault();
+      let existingObj = this;
+      const config = {
           headers: {
               "Authorization": "Bearer "+localStorage.getItem('usertoken'),
               "Accept": "application/json",
-          },
+              'content-type': 'multipart/form-data',
+          }
       }
-     )
-     .then((resp) =>{
-        this.form.name = '';
-        this.form.color = '';
-        if(resp['data']['category'])
-        {
-        
-             this.name = ''
-             this.color = ''
-             Swal.fire({
-                title: 'Good job!',
-                text:   "Category Create Successfully!",
-                icon: 'success',
-              
-            });
-        }
-        else
-        {
-
-         Swal.fire({
-           title: 'OPPS',
-           text:   "error",
-           icon: 'warning',
-         
-       });
+      let data = new FormData();
+      data.append('image', this.filep);
+      data.append('package_name', this.form.package_name);
+      data.append('price',  this.form.price);
+    
+      axios
+      .post('/api/package', data, config)
+      .then((resp) =>{
+          this.form.package_name = '';
+          this.form.price = '';
+          this.filep = '';
+          if(resp['data']['package'])
+          {
           
+              this.name = ''
+              this.color = ''
+              Swal.fire({
+                  title: 'Good job!',
+                  text:   "Package Create Successfully!",
+                  icon: 'success',
+                
+              });
+          }
+          else
+          {
+
+          Swal.fire({
+            title: 'OPPS',
+            text:   "error",
+            icon: 'warning',
+          
+        });
+            
+          }
+          
+      })
+      .catch(e => {
+        this.notifmsg_p = e.response.data
+      })
+    },
+     save_category(){
+      
+      axios
+      .post('/api/category',
+        {
+          name: this.form.name,
+          color: this.form.color,
+        },
+        {
+            headers: {
+                "Authorization": "Bearer "+localStorage.getItem('usertoken'),
+                "Accept": "application/json",
+            },
         }
-         
-     })
-     .catch(e => {
-      this.notifmsg = e.response.data
-     })
-   },
+      )
+      .then((resp) =>{
+          this.form.name = '';
+          this.form.color = '';
+          if(resp['data']['category'])
+          {
+          
+              this.name = ''
+              this.color = ''
+              Swal.fire({
+                  title: 'Good job!',
+                  text:   "Category Create Successfully!",
+                  icon: 'success',
+                
+              });
+          }
+          else
+          {
+
+          Swal.fire({
+            title: 'OPPS',
+            text:   "error",
+            icon: 'warning',
+          
+        });
+            
+          }
+          
+      })
+      .catch(e => {
+        this.notifmsg = e.response.data
+      })
+    },
      save_customer(){
      
        axios

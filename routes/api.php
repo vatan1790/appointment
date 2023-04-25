@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PackageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,3 +27,5 @@ Route::post('login',[UserController::class, 'login']);
 Route::get('profile',[UserController::class, 'getAuthenticatedUser']);
 Route::resource('customer', CustomerController::class);
 Route::resource('category', CategoryController::class);
+Route::resource('service', ServiceController::class);
+Route::resource('package', PackageController::class);

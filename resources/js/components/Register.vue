@@ -1,4 +1,4 @@
-<template>
+<template> 
     <div class="container p-5">
       <h3 class="text-center mt-2 mb-5">
         <img src="images/logo.svg" alt="Logo">
@@ -50,8 +50,7 @@ export default {
       name:'',
       email: '',
       password:'',
-      password_confirmation: ''
-      
+      password_confirmation: '',
     }
   }
 },
