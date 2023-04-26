@@ -1117,7 +1117,7 @@ section {
 .add-service-form .service-img label img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 
 .add-service-form .service-img p {

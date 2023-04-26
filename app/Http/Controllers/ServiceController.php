@@ -55,8 +55,7 @@ class ServiceController extends Controller
                 return response()->json(['user_not_found'], 400);
             }
             $message = array();
-            $validator = Validator::make($request->all(), [
-                'file' =>'required',
+            $validator = Validator::make($request->all(), [             
                 'service_name' => 'required|string|max:255',
                 'duration' => 'required',
                 'price' => 'required',
@@ -68,7 +67,6 @@ class ServiceController extends Controller
            
                 return response()->json( $message , 400);
             }
-            return $request;
             if($request->image) {
                 $file_name = time().'_'.$request->image->getClientOriginalName();
                 $file_path = $request->file('image')->storeAs('uploads', $file_name, 'public');

@@ -860,7 +860,7 @@
                 <label class="mx-auto">
                   
                   <input type="file" name="file" class="d-none"  v-on:change="onChange" >
-                  <img src="images/dummy-img.png" alt="Default">
+                  <img :src="imageFile" alt="Default" style="height: 130px;" >
                 </label>
                 <p>Service image</p>
               </div>
@@ -983,7 +983,7 @@
               <div class="service-img text-center">
                 <label class="mx-auto">
                   <input type="file" class="d-none" v-on:change="onChangep" >
-                  <img src="images/dummy-img.png" alt="Default">
+                  <img  :src="imageFile2" alt="Default" style="height: 130px;">
                 </label>
                 <p>Service image</p>
               </div>
@@ -2067,6 +2067,8 @@
      notifmsg: '',
      notifmsg_p: '',
      notifmsg_s: '',
+     imageFile:'images/dummy-img.png',
+     imageFile2:'images/dummy-img.png',
      form:{
        fname:'',
        lname: '',
@@ -2085,9 +2087,11 @@
    methods:{
       onChange(e) {
         this.file = e.target.files[0];
+        this.imageFile = URL.createObjectURL(e.target.files[0]);
       },
       onChangep(e) {
-        this.filep = e.target.files[0];
+        this.filep = e.target.files[0];        
+        this.imageFile2 = URL.createObjectURL(e.target.files[0]);
       },
       formSubmit(e){
         e.preventDefault();
