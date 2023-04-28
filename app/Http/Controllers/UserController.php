@@ -6,15 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Facades\JWTFactory;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\JWTManager as JWT;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-
+use Auth;
 
 class UserController extends Controller
 {
@@ -31,29 +23,34 @@ class UserController extends Controller
            
                 return response()->json( $message , 400);
             }
+            $password= Hash::make($request->password);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' =>$password ,
             ]);
+            if (Auth::attempt(array('email'=>$request->email, 'password'=>$password)))
+            {
+                return response()->json(compact('user','token'), 201);
 
-            $token = JWTAuth::fromUser($user);
+            }else{
+                return response()->json(['error'=>'invalid Registration'], 400);
+            }
 
-            return response()->json(compact('user','token'), 201);
 
     }
 
     public function login(Request $request){
         $credentials = $request->all();
-        try {
-            if(! $token = JWTAuth::attempt($credentials,['exp' => strtotime(date('Y-m-d',strtotime('+ 7 days')))])){
-                    return response()->json(['error'=>'invalid Credentials'], 400);
-            }
-        }catch (JWTException $e){
-            return response()->json(['error'=>'could_not_create_token'], 500);
-        }
+       
+        if (Auth::attempt($credentials))
+        {
+            $user = Auth::user()->id;
+            return response()->json(compact('user'), 201);
 
-        return response()->json(compact('token'));
+        }else{
+            return response()->json(['error'=>'invalid Registration'], 400);
+        }
 
     }
 
@@ -62,13 +59,13 @@ class UserController extends Controller
             if(!$user = JWTAuth::parseToken()->authenticate()){
                 return response()->json(['user_not_found'], 400);
             }
-        }catch (TokenExpiredException $e){
-            return response()->json(['token_expired'], $e->getStatusCode());
-        }catch (TokenInvalidException $e){
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        }catch (JWTException $e){
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
+            }catch (TokenExpiredException $e){
+                return response()->json(['token_expired'], $e->getStatusCode());
+            }catch (TokenInvalidException $e){
+                return response()->json(['token_invalid'], $e->getStatusCode());
+            }catch (JWTException $e){
+                return response()->json(['token_absent'], $e->getStatusCode());
+            }
 
         return response()->json(compact('user'));
     }

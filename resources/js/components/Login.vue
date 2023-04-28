@@ -59,10 +59,10 @@ methods:{
     .then((resp) =>{
        this.form.email = '';
        this.form.password = '';
-       if(resp['data']['token'])
+       if(resp['data']['user'])
        {
        
-            localStorage.setItem('usertoken',resp['data']['token'])
+            localStorage.setItem('usertoken',resp['data']['user'])
             this.email = ''
             this.password = ''
             router.push({name: 'dashboard'})

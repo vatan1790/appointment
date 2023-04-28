@@ -10,33 +10,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Facades\JWTFactory;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\JWTManager as JWT;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-
 class ServiceController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        try{
-            if(!$user = JWTAuth::parseToken()->authenticate()){
-                return response()->json(['user_not_found'], 400);
-            }
-            $service = Service::where('user_id',$user->id)->get();    
-            
-            return response()->json(compact('service'));  
-        }catch (TokenExpiredException $e){
-            return response()->json(['token_expired'], $e->getStatusCode());
-        }catch (TokenInvalidException $e){
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        }catch (JWTException $e){
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
+        $service = Service::where('user_id',$request->user_id)->get();  
+        return response()->json(compact('service'));  
          
     }
 
@@ -49,51 +29,45 @@ class ServiceController extends Controller
 
 
     public function store(Request $request)
-    {
-        try{
-            if(!$user = JWTAuth::parseToken()->authenticate()){
-                return response()->json(['user_not_found'], 400);
-            }
-            $message = array();
-            $validator = Validator::make($request->all(), [             
-                'service_name' => 'required|string|max:255',
-                'duration' => 'required',
-                'price' => 'required',
-                'description' => 'required',
-            ],$message);
+    {       
+        $message = array();
+        $validator = Validator::make($request->all(), [      
+                   
+            'service_name' => 'required|string|max:255',
+            'duration' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'user_id' =>'required'
+        ],$message);
 
-            if($validator->fails()){
-                $message = $validator->messages()->all();
-           
-                return response()->json( $message , 400);
-            }
-            if($request->image) {
-                $file_name = time().'_'.$request->image->getClientOriginalName();
-                $file_path = $request->file('image')->storeAs('uploads', $file_name, 'public');
-                $imagename = time().'_'.$request->image->getClientOriginalName();
-                $path = '/storage/' . $file_path;
-                
-                    
-            }else{
-                $path = '';
-            }
-            $service = Service::create([
-                'name' => $request->service_name,
-                'duration' => $request->duration,
-                'price' => $request->price,
-                'description' => $request->description,
-                'image' => $path,
-                'user_id'=>$user->id
-            ]);
-            return response()->json(compact('service'));  
-        }catch (TokenExpiredException $e){
-            return response()->json(['token_expired'], $e->getStatusCode());
-        }catch (TokenInvalidException $e){
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        }catch (JWTException $e){
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
+        if($validator->fails()){
+            $message = $validator->messages()->all();
         
+            return response()->json( $message , 400);
+        }
+        if($request->image) {
+            $file_name = time().'_'.$request->image->getClientOriginalName();
+            $file_path = $request->file('image')->storeAs('uploads', $file_name, 'public');
+            $imagename = time().'_'.$request->image->getClientOriginalName();
+            $path = '/storage/' . $file_path;
+            
+                
+        }else{
+            $path = '';
+        }
+        $service = Service::create([
+            'name' => $request->service_name,
+            'duration' => $request->duration,
+            'price' => $request->price,
+            'description' => $request->description,
+            'image' => $path,
+            'user_id'=>$request->user_id
+        ]);
+        if($service){
+           return response()->json(compact('service'));
+        }else{
+            return response()->json(['error'], 400);
+        }
     }
 
     public function show(Service $service)

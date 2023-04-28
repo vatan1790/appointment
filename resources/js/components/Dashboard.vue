@@ -2067,6 +2067,7 @@
      notifmsg: '',
      notifmsg_p: '',
      notifmsg_s: '',
+     categories: [],
      imageFile:'images/dummy-img.png',
      imageFile2:'images/dummy-img.png',
      form:{
@@ -2098,12 +2099,12 @@
         let existingObj = this;
         const config = {
             headers: {
-                "Authorization": "Bearer "+localStorage.getItem('usertoken'),
                 "Accept": "application/json",
                 'content-type': 'multipart/form-data',
             }
         }
         let data = new FormData();
+        data.append('user_id',localStorage.getItem('usertoken'));
         data.append('image', this.file);
         data.append('service_name',  this.form.service_name);
         data.append('duration',  this.form.duration);
@@ -2119,6 +2120,8 @@
             this.form.description = '';
             this.form.status = '';
             this.file = '';
+            this.imageFile ='images/dummy-img.png';
+            this.notifmsg_p =[];
             if(resp['data']['service'])
             {
             
@@ -2154,12 +2157,13 @@
       let existingObj = this;
       const config = {
           headers: {
-              "Authorization": "Bearer "+localStorage.getItem('usertoken'),
               "Accept": "application/json",
               'content-type': 'multipart/form-data',
           }
       }
       let data = new FormData();
+      
+      data.append('user_id',localStorage.getItem('usertoken'));
       data.append('image', this.filep);
       data.append('package_name', this.form.package_name);
       data.append('price',  this.form.price);
@@ -2170,6 +2174,8 @@
           this.form.package_name = '';
           this.form.price = '';
           this.filep = '';
+          this.imageFile2 ='images/dummy-img.png';
+          this.notifmsg_p = [];
           if(resp['data']['package'])
           {
           
@@ -2199,6 +2205,8 @@
         this.notifmsg_p = e.response.data
       })
     },
+
+    //category
      save_category(){
       
       axios
@@ -2206,10 +2214,10 @@
         {
           name: this.form.name,
           color: this.form.color,
+          user_id: localStorage.getItem('usertoken')
         },
         {
             headers: {
-                "Authorization": "Bearer "+localStorage.getItem('usertoken'),
                 "Accept": "application/json",
             },
         }
@@ -2217,6 +2225,7 @@
       .then((resp) =>{
           this.form.name = '';
           this.form.color = '';
+          this.notifmsg = [];
           if(resp['data']['category'])
           {
           
@@ -2246,6 +2255,8 @@
         this.notifmsg = e.response.data
       })
     },
+    
+    //customer
      save_customer(){
      
        axios
@@ -2254,10 +2265,10 @@
           fname: this.form.fname,
           lname: this.form.lname,
           phone: this.form.phone,
+          user_id: localStorage.getItem('usertoken')
         },
         {
             headers: {
-                "Authorization": "Bearer "+localStorage.getItem('usertoken'),
                 "Accept": "application/json",
             },
         }
@@ -2266,6 +2277,7 @@
           this.form.fname = '';
           this.form.lname = '';
           this.form.phone = '';
+          this.notifmsg =[];
           if(resp['data']['customer'])
           {
           
@@ -2296,8 +2308,11 @@
         this.notifmsg = e.response.data
        })
      }
-   }
+   },
+  
+   //get category
    
+  
  }
 
  

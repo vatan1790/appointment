@@ -10,34 +10,24 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Facades\JWTFactory;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\JWTManager as JWT;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-
 class CategoryController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        try{
-            if(!$user = JWTAuth::parseToken()->authenticate()){
-                return response()->json(['user_not_found'], 400);
-            }
-            $category = Category::where('user_id',$user->id)->get();    
-            
-            return response()->json(compact('category'));  
-        }catch (TokenExpiredException $e){
-            return response()->json(['token_expired'], $e->getStatusCode());
-        }catch (TokenInvalidException $e){
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        }catch (JWTException $e){
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
-         
+        $message = array();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ],$message);
+
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
+        } 
+        $category = Category::where('user_id',$request->user_id)->get();
+        
+        return response()->json(compact('category'));
     }
 
 
@@ -50,34 +40,30 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        try{
-            if(!$user = JWTAuth::parseToken()->authenticate()){
-                return response()->json(['user_not_found'], 400);
-            }
-            $message = array();
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:255',
-                'color' => 'required|string|max:255',
-            ],$message);
+       
+        $message = array();
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'color' => 'required|string|max:255',
+        ],$message);
 
-            if($validator->fails()){
-                $message = $validator->messages()->all();
-           
-                return response()->json( $message , 400);
-            }
-            $category = Category::create([
-                'name' => $request->name,
-                'color' => $request->color,
-                'user_id'=>$user->id
-            ]);
-            return response()->json(compact('category'));  
-        }catch (TokenExpiredException $e){
-            return response()->json(['token_expired'], $e->getStatusCode());
-        }catch (TokenInvalidException $e){
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        }catch (JWTException $e){
-            return response()->json(['token_absent'], $e->getStatusCode());
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
         }
+        $category = Category::create([
+            'name' => $request->name,
+            'color' => $request->color,
+            'user_id'=>$request->user_id
+        ]);
+
+        if($category){
+            return response()->json(compact('category'));
+         }else{
+             return response()->json(['error'], 400);
+         }
+       
         
     }
 
