@@ -782,11 +782,8 @@
           </div>
           <div class="categories-list d-flex align-items-center">
             <div class="listing">
-              <ul>
-                <li><a href="javascript:void(0)" class="category-li active" data-filter=".all">All</a></li>
-                <li><a href="javascript:void(0)" class="category-li" data-filter=".package">Package</a></li>
-                <li><a href="javascript:void(0)" class="category-li" data-filter=".manicure">Manicure</a></li>
-                <li><a href="javascript:void(0)" class="category-li" data-filter=".pedicure">Pedicure</a></li>
+              <ul v-for="cat in category" :key="cat.id">
+                <li><a href="javascript:void(0)" class="category-li active" data-filter=".all">{{cat.name}}</a></li>
               </ul>
             </div>
             <a href="#" class="add-category-btn ms-auto" data-bs-toggle="modal" data-bs-target="#addCategoryModal">+</a>
@@ -1926,7 +1923,7 @@
 
       <div class="booking-body d-none">
         <div class="add-service-pills">
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <ul class="nav nav-tabs" id="myTab" role="tablist"  >
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent" type="button" role="tab" aria-controls="recent" aria-selected="true">Recent</button>
             </li>
@@ -2068,6 +2065,7 @@
      notifmsg_p: '',
      notifmsg_s: '',
      categories: [],
+     category:[],
      imageFile:'images/dummy-img.png',
      imageFile2:'images/dummy-img.png',
      form:{
@@ -2085,6 +2083,15 @@
      }
    }
  },
+ created(){
+  
+        axios.get('/api/category?user_id='+localStorage.getItem('usertoken'))
+        .then((resp) =>{
+          this.category = resp.data.category
+        })
+  },
+
+
    methods:{
       onChange(e) {
         this.file = e.target.files[0];
