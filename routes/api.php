@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\TechnicianController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,3 +30,4 @@ Route::resource('customer', CustomerController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('service', ServiceController::class);
 Route::resource('package', PackageController::class);
+Route::resource('technician', TechnicianController::class);

@@ -15,6 +15,16 @@ class ServiceController extends Controller
 
     public function index(Request $request)
     {
+        $message = array();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ],$message);
+
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
+        }
         $service = Service::where('user_id',$request->user_id)->get();  
         return response()->json(compact('service'));  
          

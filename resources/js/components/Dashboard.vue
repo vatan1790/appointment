@@ -991,44 +991,24 @@
               <div class="form-group">
                 <label class="input-label">Service</label>
               </div>
-              <div class="add-service-listing">
+              <div class="add-service-listing" v-for="serv in services" :key="serv.id">
+                
                 <div class="service-box">
                   <a href="#" class="remove-service"><img src="images/cross-yellow.svg" height="8" alt="Remove"></a>
                   <div class="d-flex align-items-center">
-                    <figure><img src="images/manicure.png" alt="Package"></figure>
+                    <figure><img  :src="`${serv.image}`" alt="Package"></figure>
                     <div class="text">
-                      <h4>Package</h4>
-                      <p>M1 - 30’</p>
+                      <h4>{{serv.name}}</h4>
+                      <p>M1 - {{serv.duration}}’</p>
                     </div>
-                    <h6 class="ms-auto">30 $</h6>
+                    <h6 class="ms-auto">{{serv.price}}$</h6>
                   </div>
                 </div>
-                <div class="service-box">
-                  <a href="#" class="remove-service"><img src="images/cross-yellow.svg" height="8" alt="Remove"></a>
-                  <div class="d-flex align-items-center">
-                    <figure><img src="images/manicure.png" alt="Manicure"></figure>
-                    <div class="text">
-                      <h4>Classic Manicure</h4>
-                      <p>M1 - 30’</p>
-                    </div>
-                    <h6 class="ms-auto">30 $</h6>
-                  </div>
-                </div>
-                <div class="service-box">
-                  <a href="#" class="remove-service"><img src="images/cross-yellow.svg" height="8" alt="Remove"></a>
-                  <div class="d-flex align-items-center">
-                    <figure><img src="images/manicure.png" alt="Pedicure"></figure>
-                    <div class="text">
-                      <h4>Classic Pedicure</h4>
-                      <p>M1 - 30’</p>
-                    </div>
-                    <h6 class="ms-auto">30 $</h6>
-                  </div>
-                </div>
+
               </div>
-              <div class="text-center mt-3">
-                <button class="theme-btn white-btn"><span class="add">+</span> Add services</button>
-              </div>
+              <!-- <div class="text-center mt-3">
+                <a href="javascript:void(0);" class="theme-btn white-btn"><span class="add">+</span> Add services</a>
+              </div> -->
               <div class="form-group text-form-group">
                 <label class="input-label">Price</label>
                 <input type="text" class="form-control" name="price" placeholder="Price" v-model="form.price">
@@ -1110,24 +1090,30 @@
         <div class="modal-body">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="heading">
-            <h3><img src="images/technician.svg" alt="Create Technician">Create Technician</h3>
+            <h3><img  src="images/technician.svg" alt="Create Technician">Create Technician</h3>
           </div>
-          <form action="">
+          <span class="text-danger" v-for="(errorArray, idx) in notifmsg_t" :key="idx">
+              <span v-for="(allErrors, idx) in errorArray" :key="idx">
+                  <span class="text-danger">{{ allErrors}} </span>
+              </span>
+            </span>
+            <br>
+          <form  @submit="save_technician"  enctype="multipart/form-data">
             <div class="create-technician">
               <h4 class="heading-20-white">Information</h4>
               <div class="d-flex align-items-center mt-3">
                 <label class="technician-img">
-                  <input type="file" class="d-none">
-                  <img src="images/dummy-technician.png" alt="Technician">
+                  <input type="file" class="d-none" v-on:change="onChangept" >
+                  <img :src="imageFile3" alt="Technician">
                 </label>
                 <div class="inputs">
                   <div class="form-group">
                     <img src="images/user.svg" alt="name">
-                    <input type="text" class="form-control" placeholder="First Name">
+                    <input type="text" class="form-control" name="fname" placeholder="First Name" v-model="form.fname">
                   </div>
                   <div class="form-group">
                     <img src="images/user.svg" alt="name">
-                    <input type="text" class="form-control" placeholder="Last Name">
+                    <input type="text" class="form-control" name="lname"  placeholder="Last Name" v-model="form.lname">
                   </div>
                 </div>
               </div>
@@ -2064,10 +2050,15 @@
      notifmsg: '',
      notifmsg_p: '',
      notifmsg_s: '',
+     notifmsg_t:'',
      categories: [],
      category:[],
+     services:[],
+     packages:[],
+     filet:'',
      imageFile:'images/dummy-img.png',
      imageFile2:'images/dummy-img.png',
+     imageFile3:'images/dummy-technician.png',
      form:{
        fname:'',
        lname: '',
@@ -2089,6 +2080,17 @@
         .then((resp) =>{
           this.category = resp.data.category
         })
+
+
+        axios.get('/api/service?user_id='+localStorage.getItem('usertoken'))
+        .then((resp) =>{
+          this.services = resp.data.service
+        })
+
+        axios.get('/api/package?user_id='+localStorage.getItem('usertoken'))
+        .then((resp) =>{
+          this.packages = resp.data.packages
+        })
   },
 
 
@@ -2100,6 +2102,10 @@
       onChangep(e) {
         this.filep = e.target.files[0];        
         this.imageFile2 = URL.createObjectURL(e.target.files[0]);
+      },
+      onChangept(e) {
+        this.filet = e.target.files[0];        
+        this.imageFile3 = URL.createObjectURL(e.target.files[0]);
       },
       formSubmit(e){
         e.preventDefault();
@@ -2158,7 +2164,61 @@
           this.notifmsg_s = e.response.data
         })
       },
+      save_technician(e){
+        e.preventDefault();
+        let existingObj = this;
+        const config = {
+            headers: {
+                "Accept": "application/json",
+                'content-type': 'multipart/form-data',
+            }
+        }
+        let data = new FormData();
+        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('image', this.filet);
+        data.append('fname',  this.form.fname);
+        data.append('lname',  this.form.lname);
+        data.append('status',  this.form.status);
+        axios
+        .post('/api/technician', data, config)
+        .then((resp) =>{
+            this.form.fname = '';
+            this.form.lname = '';
+            this.form.status = '';
+            this.file = '';
+            this.imageFile3 ='images/dummy-technician.png';
+            this.notifmsg_t =[];
+            if(resp['data']['technician'])
+            {
+            
+              this.form.fname = '';
+              this.form.lname = '';
+              this.form.status = '';
+              this.file = '';
+              Swal.fire({
+                    title: 'Good job!',
+                    text:   "Service Create Successfully!",
+                    icon: 'success',
+                  
+                });
+            }
+            else
+            {
 
+            Swal.fire({
+              title: 'OPPS',
+              text:   "error",
+              icon: 'warning',
+            
+          });
+              
+            }
+            
+        })
+        .catch(e => {
+          this.notifmsg_t = e.response.data
+        })
+      },
       save_package(e){
       e.preventDefault();
       let existingObj = this;
