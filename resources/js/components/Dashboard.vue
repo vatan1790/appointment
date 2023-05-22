@@ -2384,6 +2384,9 @@
 
  
  $(document).ready(function(){
+
+ });
+ $(document).ready(function(){
         $("#desktop").click(function(){
             $("#sideBarMenu").fadeToggle();
         });
