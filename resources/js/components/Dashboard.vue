@@ -1042,38 +1042,12 @@
           <h4 class="heading-20-white">Manage technician</h4>
           <div class="technician-list">
             <ul>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
+              <li v-for="tech in technician" :key="tech.id">
+                <!-- <img  :src="tech.image" alt="Anna"> -->
+                <figure><img  :src="tech.image" alt="Anna"></figure>
+                <p>{{tech.fname}} {{tech.fname}}</p>
               </li>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
-              </li>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
-              </li>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
-              </li>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
-              </li>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
-              </li>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
-              </li>
-              <li>
-                <figure><img src="images/user1.png" alt="Anna"></figure>
-                <p>Anna Pham</p>
-              </li>
+              
               <li>
                 <a href="#" class="add-technician-btn" data-bs-toggle="modal"
                   data-bs-target="#createTechnicianModal">+</a>
@@ -2286,6 +2260,7 @@
      category:[],
      services:[],
      allservices:[],
+     technician:[],
      packages:[],
      filet:'',
      imageFile:'images/dummy-img.png',
@@ -2321,7 +2296,14 @@
 
         axios.get('/api/package?user_id='+localStorage.getItem('usertoken'))
         .then((resp) =>{
-          this.packages = resp.data.packages
+          this.packages = resp.data.package
+        })
+
+        axios.get('/api/technician?user_id='+localStorage.getItem('usertoken'))
+        .then((resp) =>{
+          this.technician = resp.data.technician
+          
+          console.log(resp.data.technician)
         })
   },
 

@@ -49,12 +49,9 @@ class TechnicianController extends Controller
             return response()->json( $message , 400);
         }
         if($request->image) {
-            $file_name = time().'_'.$request->image->getClientOriginalName();
-            $file_path = $request->file('image')->storeAs('uploads', $file_name, 'public');
-            $imagename = time().'_'.$request->image->getClientOriginalName();
-            $path = '/storage/' . $file_path;
-            
-                
+            $imageName = time().'.'.$request->image->extension();  
+            $file_path =  $request->image->move(public_path('uploads'), $imageName);
+            $path = '/uploads/' . $imageName;
         }else{
             $path = '';
         }
