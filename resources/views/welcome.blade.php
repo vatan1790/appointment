@@ -1,5 +1,5 @@
 <html>
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -14,14 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- ---FONT--- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +29,39 @@
     <script src="{{asset('js/vue.js')}}"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
+<style>
+.checkbox-alias{
+    background: #fff;
+    padding: 15px 2px;
+    border: 1px solid #CCCACA;
+    font-size: 14px;
+    line-height: 24px;
+    color: #606060;
+    width: 100%;
+    margin: -1px;
+  transition: all 250ms ease-out;
+  cursor: pointer;
+}
+
+.invisible-checkboxes input[type=checkbox]{
+  display: none;
+}
+
+.invisible-checkboxes input[type=checkbox]:checked + .checkbox-alias{
+    background-color: #D5A948;
+    color: #fff;
+    border: 1px solid #CCCACA;
+}
+ul.days li .active {
+    background: #D5A948;
+    color: #fff;
+    padding: 1px 15px;
+    border-radius: 6px 6px 0px 0;
+}
+ul.days.text-center.nav.nav-tabs li a {
+    color: #fff;
+}
+</style>
 <body >
     <div id="app">
         <example-component></example-component>

@@ -782,44 +782,48 @@
           </div>
           <div class="categories-list d-flex align-items-center">
             <div class="listing">
-              <ul v-for="cat in category" :key="cat.id">
-                <li><a href="javascript:void(0)" class="category-li active" data-filter=".all">{{cat.name}}</a></li>
+              <ul class="nav nav-tabs" v-for="cat in category" :key="cat.id">
+                <li><a  data-toggle="tab" href="#home/<?= cat.id ?>"  class="category-li active" data-filter=".all">{{cat.name}}</a></li>
               </ul>
             </div>
             <a href="#" class="add-category-btn ms-auto" data-bs-toggle="modal" data-bs-target="#addCategoryModal">+</a>
           </div>
+          <div class="tab-content">
+                <div id="home" class="tab-pane fade in active show">
+                  <div class="service-listing">
+                    <div class="service-box all package">
+                      <div class="d-flex align-items-center">
+                        <figure><img src="images/manicure.png" alt="Package"></figure>
+                        <div class="text">
+                          <h4>Package <span>2</span></h4>
+                          <p>M1 - 30’</p>
+                        </div>
+                        <h6 class="ms-auto">30 $</h6>
+                      </div>
+                    </div>
+                    <div class="service-box all manicure">
+                      <div class="d-flex align-items-center">
+                        <figure><img src="images/manicure.png" alt="Manicure"></figure>
+                        <div class="text">
+                          <h4>Classic Manicure <span>2</span></h4>
+                          <p>M1 - 30’</p>
+                        </div>
+                        <h6 class="ms-auto">30 $</h6>
+                      </div>
+                    </div>
+                    <div class="service-box all pedicure">
+                      <div class="d-flex align-items-center">
+                        <figure><img src="images/manicure.png" alt="Pedicure"></figure>
+                        <div class="text">
+                          <h4>Classic Pedicure</h4>
+                          <p>M1 - 30’</p>
+                        </div>
+                        <h6 class="ms-auto">30 $</h6>
+                      </div>
+                    </div>
+              </div>
 
-          <div class="service-listing">
-            <div class="service-box all package">
-              <div class="d-flex align-items-center">
-                <figure><img src="images/manicure.png" alt="Package"></figure>
-                <div class="text">
-                  <h4>Package <span>2</span></h4>
-                  <p>M1 - 30’</p>
-                </div>
-                <h6 class="ms-auto">30 $</h6>
-              </div>
-            </div>
-            <div class="service-box all manicure">
-              <div class="d-flex align-items-center">
-                <figure><img src="images/manicure.png" alt="Manicure"></figure>
-                <div class="text">
-                  <h4>Classic Manicure <span>2</span></h4>
-                  <p>M1 - 30’</p>
-                </div>
-                <h6 class="ms-auto">30 $</h6>
-              </div>
-            </div>
-            <div class="service-box all pedicure">
-              <div class="d-flex align-items-center">
-                <figure><img src="images/manicure.png" alt="Pedicure"></figure>
-                <div class="text">
-                  <h4>Classic Pedicure</h4>
-                  <p>M1 - 30’</p>
-                </div>
-                <h6 class="ms-auto">30 $</h6>
-              </div>
-            </div>
+        </div>
             <div class="service-box all empty-service manicure">
               <div class="text-center">
                 <p>Category for natural manicure services Lorem ipsum dolor sit amet,</p>
@@ -1119,61 +1123,273 @@
               </div>
 
               <h4 class="heading-20-white mt-4">Working time</h4>
-              
-              <div id="exTab2" class="container">	
-              <ul class="nav nav-tabs">
-                    <li class="active">
-                      <a  href="#1" data-toggle="tab">Overview</a>
-                    </li>
-                    <li><a href="#2" data-toggle="tab">Without clearfix</a>
-                    </li>
-                    <li><a href="#3" data-toggle="tab">Solution</a>
-                    </li>
-                  </ul>
-
-                    <div class="tab-content ">
-                      <div class="tab-pane active" id="1">
-                        <h3>Standard tab panel created on bootstrap using nav-tabs</h3>
-                      </div>
-                      <div class="tab-pane" id="2">
-                        <h3>Notice the gap between the content and tab after applying a background color</h3>
-                      </div>
-                      <div class="tab-pane" id="3">
-                        <h3>add clearfix to tab-content (see the css)</h3>
-                      </div>
-                    </div>
-                </div>
               <div class="working-time mt-3">
-                <ul class="days text-center">
-                  <li><button class="active">Mon</button></li>
-                  <li><button>Tue</button></li>
-                  <li><button>Wed</button></li>
-                  <li><button>Thu</button></li>
-                  <li><button>Fri</button></li>
-                  <li><button>Sat</button></li>
-                  <li><button>Sun</button></li>
+                <ul class="days text-center nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#mon">Mon</a></li>
+                  <li><a data-toggle="tab" href="#tue">Tue</a></li>
+                  <li><a data-toggle="tab" href="#wed">Wed</a></li>
+                  <li><a data-toggle="tab" href="#thu">Thu</a></li>
+                  <li><a data-toggle="tab" href="#fri">Fri</a></li>
+                  <li><a data-toggle="tab" href="#sat">Sat</a></li>
+                  <li><a data-toggle="tab" href="#sun">Sun</a></li>
                 </ul>
-                <div class="hours mt-2">
-                  <button class="active">01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
-                  <button>01:00</button>
+                  <div class="tab-content">
+                    <div class="tab-pane fade in active show" id="mon">
+                      <div class="hours mt-2 invisible-checkboxes" >
+                         <input type="checkbox" name="rGroup" value="1" id="r1" checked/>
+                         <label class="checkbox-alias" for="r1">01:00</label>
+                          <input type="checkbox" name="rGroup" value="2" id="r2"/>
+                          <label class="checkbox-alias" for="r2">02:00</label>
+                          <input type="checkbox" name="rGroup" value="3" id="r3"/>
+                         <label class="checkbox-alias" for="r3">03:00</label>
+                          <input type="checkbox" name="rGroup" value="4" id="r4"/>
+                          <label class="checkbox-alias" for="r4">04:00</label>
+                          <input type="checkbox" name="rGroup" value="5" id="r5"/>
+                         <label class="checkbox-alias" for="r5">05:00</label>
+                          <input type="checkbox" name="rGroup" value="6" id="r6"/>
+                          <label class="checkbox-alias" for="r6">06:00</label>
+                          <input type="checkbox" name="rGroup" value="7" id="r7"/>
+                         <label class="checkbox-alias" for="r7">07:00</label>
+                          <input type="checkbox" name="rGroup" value="8" id="r8"/>
+                          <label class="checkbox-alias" for="r8">08:00</label>
+                          <input type="checkbox" name="rGroup" value="9" id="r9"/>
+                         <label class="checkbox-alias" for="r9">09:00</label>
+                          <input type="checkbox" name="rGroup" value="10" id="r10"/>
+                          <label class="checkbox-alias" for="r10">10:00</label>
+                          <input type="checkbox" name="rGroup" value="11" id="r11"/>
+                         <label class="checkbox-alias" for="r11">11:00</label>
+                          <input type="checkbox" name="rGroup" value="12" id="r12"/>
+                          <label class="checkbox-alias" for="r12">12:00</label>
+                          <input type="checkbox" name="rGroup" value="13" id="r13"/>
+                         <label class="checkbox-alias" for="r13">13:00</label>
+                          <input type="checkbox" name="rGroup" value="14" id="r14"/>
+                          <label class="checkbox-alias" for="r14">14:00</label>
+                          <input type="checkbox" name="rGroup" value="15" id="r15"/>
+                         <label class="checkbox-alias" for="r15">15:00</label>
+                          <input type="checkbox" name="rGroup" value="16" id="r16"/>
+                          <label class="checkbox-alias" for="r16">16:00</label>
+                      </div>
+                  </div>
+                <div class="tab-pane fade " id="tue">
+                  <div class="hours mt-2 invisible-checkboxes" >
+                         <input type="checkbox" name="rGroup" value="1" id="r01" checked/>
+                         <label class="checkbox-alias" for="r01">01:00</label>
+                          <input type="checkbox" name="rGroup" value="2" id="r02"/>
+                          <label class="checkbox-alias" for="r02">02:00</label>
+                          <input type="checkbox" name="rGroup" value="3" id="r03"/>
+                         <label class="checkbox-alias" for="r03">03:00</label>
+                          <input type="checkbox" name="rGroup" value="4" id="r04"/>
+                          <label class="checkbox-alias" for="r04">04:00</label>
+                          <input type="checkbox" name="rGroup" value="5" id="r05"/>
+                         <label class="checkbox-alias" for="r05">05:00</label>
+                          <input type="checkbox" name="rGroup" value="6" id="r06"/>
+                          <label class="checkbox-alias" for="r06">06:00</label>
+                          <input type="checkbox" name="rGroup" value="7" id="r07"/>
+                         <label class="checkbox-alias" for="r07">07:00</label>
+                          <input type="checkbox" name="rGroup" value="8" id="r08"/>
+                          <label class="checkbox-alias" for="r08">08:00</label>
+                          <input type="checkbox" name="rGroup" value="9" id="r09"/>
+                         <label class="checkbox-alias" for="r09">09:00</label>
+                          <input type="checkbox" name="rGroup" value="10" id="r010"/>
+                          <label class="checkbox-alias" for="r010">10:00</label>
+                          <input type="checkbox" name="rGroup" value="11" id="r011"/>
+                         <label class="checkbox-alias" for="r011">11:00</label>
+                          <input type="checkbox" name="rGroup" value="12" id="r012"/>
+                          <label class="checkbox-alias" for="r012">12:00</label>
+                          <input type="checkbox" name="rGroup" value="13" id="r013"/>
+                         <label class="checkbox-alias" for="r013">13:00</label>
+                          <input type="checkbox" name="rGroup" value="14" id="r014"/>
+                          <label class="checkbox-alias" for="r014">14:00</label>
+                          <input type="checkbox" name="rGroup" value="15" id="r015"/>
+                         <label class="checkbox-alias" for="r015">15:00</label>
+                          <input type="checkbox" name="rGroup" value="16" id="r016"/>
+                          <label class="checkbox-alias" for="r016">16:00</label>
+                      </div>
                 </div>
+                <div class="tab-pane fade " id="wed">
+                  <div class="hours mt-2 invisible-checkboxes" >
+                         <input type="checkbox" name="rGroup" value="1" id="r001" checked/>
+                         <label class="checkbox-alias" for="r001">01:00</label>
+                          <input type="checkbox" name="rGroup" value="2" id="r002"/>
+                          <label class="checkbox-alias" for="r002">02:00</label>
+                          <input type="checkbox" name="rGroup" value="3" id="r003"/>
+                         <label class="checkbox-alias" for="r003">03:00</label>
+                          <input type="checkbox" name="rGroup" value="4" id="r004"/>
+                          <label class="checkbox-alias" for="r004">04:00</label>
+                          <input type="checkbox" name="rGroup" value="5" id="r005"/>
+                         <label class="checkbox-alias" for="r005">05:00</label>
+                          <input type="checkbox" name="rGroup" value="6" id="r6"/>
+                          <label class="checkbox-alias" for="r006">06:00</label>
+                          <input type="checkbox" name="rGroup" value="7" id="r007"/>
+                         <label class="checkbox-alias" for="r007">07:00</label>
+                          <input type="checkbox" name="rGroup" value="8" id="r008"/>
+                          <label class="checkbox-alias" for="r008">08:00</label>
+                          <input type="checkbox" name="rGroup" value="9" id="r009"/>
+                         <label class="checkbox-alias" for="r009">09:00</label>
+                          <input type="checkbox" name="rGroup" value="10" id="r0010"/>
+                          <label class="checkbox-alias" for="r0010">10:00</label>
+                          <input type="checkbox" name="rGroup" value="11" id="r0011"/>
+                         <label class="checkbox-alias" for="r0011">11:00</label>
+                          <input type="checkbox" name="rGroup" value="12" id="r0012"/>
+                          <label class="checkbox-alias" for="r0012">12:00</label>
+                          <input type="checkbox" name="rGroup" value="13" id="r0013"/>
+                         <label class="checkbox-alias" for="r0013">13:00</label>
+                          <input type="checkbox" name="rGroup" value="14" id="r14"/>
+                          <label class="checkbox-alias" for="r0014">14:00</label>
+                          <input type="checkbox" name="rGroup" value="15" id="r0015"/>
+                         <label class="checkbox-alias" for="r0015">15:00</label>
+                          <input type="checkbox" name="rGroup" value="16" id="r0016"/>
+                          <label class="checkbox-alias" for="r0016">16:00</label>
+                      </div>
+                </div>
+                <div class="tab-pane fade" id="thu">
+                  <div class="hours mt-2 invisible-checkboxes" >
+                         <input type="checkbox" name="rGroup" value="1" id="r_1" checked/>
+                         <label class="checkbox-alias" for="r_1">01:00</label>
+                          <input type="checkbox" name="rGroup" value="2" id="r_2"/>
+                          <label class="checkbox-alias" for="r_2">02:00</label>
+                          <input type="checkbox" name="rGroup" value="3" id="r_3"/>
+                         <label class="checkbox-alias" for="r_3">03:00</label>
+                          <input type="checkbox" name="rGroup" value="4" id="r_4"/>
+                          <label class="checkbox-alias" for="r_4">04:00</label>
+                          <input type="checkbox" name="rGroup" value="5" id="r_5"/>
+                         <label class="checkbox-alias" for="r_5">05:00</label>
+                          <input type="checkbox" name="rGroup" value="6" id="r_6"/>
+                          <label class="checkbox-alias" for="r_6">06:00</label>
+                          <input type="checkbox" name="rGroup" value="7" id="r_7"/>
+                         <label class="checkbox-alias" for="r_7">07:00</label>
+                          <input type="checkbox" name="rGroup" value="8" id="r_8"/>
+                          <label class="checkbox-alias" for="r_8">08:00</label>
+                          <input type="checkbox" name="rGroup" value="9" id="r_9"/>
+                         <label class="checkbox-alias" for="r_9">09:00</label>
+                          <input type="checkbox" name="rGroup" value="10" id="r_10"/>
+                          <label class="checkbox-alias" for="r_10">10:00</label>
+                          <input type="checkbox" name="rGroup" value="11" id="r_11"/>
+                         <label class="checkbox-alias" for="r_11">11:00</label>
+                          <input type="checkbox" name="rGroup" value="12" id="r_12"/>
+                          <label class="checkbox-alias" for="r_12">12:00</label>
+                          <input type="checkbox" name="rGroup" value="13" id="r_13"/>
+                         <label class="checkbox-alias" for="r_13">13:00</label>
+                          <input type="checkbox" name="rGroup" value="14" id="r_14"/>
+                          <label class="checkbox-alias" for="r_14">14:00</label>
+                          <input type="checkbox" name="rGroup" value="15" id="r_15"/>
+                         <label class="checkbox-alias" for="r_15">15:00</label>
+                          <input type="checkbox" name="rGroup" value="16" id="r_16"/>
+                          <label class="checkbox-alias" for="r_16">16:00</label>
+                      </div>
+                </div>
+                <div class="tab-pane fade" id="fri">
+                  <div class="hours mt-2 invisible-checkboxes" >
+                         <input type="checkbox" name="rGroup" value="1" id="r-1" checked/>
+                         <label class="checkbox-alias" for="r-1">01:00</label>
+                          <input type="checkbox" name="rGroup" value="2" id="r-2"/>
+                          <label class="checkbox-alias" for="r-2">02:00</label>
+                          <input type="checkbox" name="rGroup" value="3" id="r-3"/>
+                         <label class="checkbox-alias" for="r-3">03:00</label>
+                          <input type="checkbox" name="rGroup" value="4" id="r-4"/>
+                          <label class="checkbox-alias" for="r-4">04:00</label>
+                          <input type="checkbox" name="rGroup" value="5" id="r-5"/>
+                         <label class="checkbox-alias" for="r-5">05:00</label>
+                          <input type="checkbox" name="rGroup" value="6" id="r-6"/>
+                          <label class="checkbox-alias" for="r-6">06:00</label>
+                          <input type="checkbox" name="rGroup" value="7" id="r-7"/>
+                         <label class="checkbox-alias" for="r-7">07:00</label>
+                          <input type="checkbox" name="rGroup" value="8" id="r-8"/>
+                          <label class="checkbox-alias" for="r-8">08:00</label>
+                          <input type="checkbox" name="rGroup" value="9" id="r-9"/>
+                         <label class="checkbox-alias" for="r-9">09:00</label>
+                          <input type="checkbox" name="rGroup" value="10" id="r-10"/>
+                          <label class="checkbox-alias" for="r-10">10:00</label>
+                          <input type="checkbox" name="rGroup" value="11" id="r-11"/>
+                         <label class="checkbox-alias" for="r-11">11:00</label>
+                          <input type="checkbox" name="rGroup" value="12" id="r-12"/>
+                          <label class="checkbox-alias" for="r-12">12:00</label>
+                          <input type="checkbox" name="rGroup" value="13" id="r-13"/>
+                         <label class="checkbox-alias" for="r-13">13:00</label>
+                          <input type="checkbox" name="rGroup" value="14" id="r-14"/>
+                          <label class="checkbox-alias" for="r-14">14:00</label>
+                          <input type="checkbox" name="rGroup" value="15" id="r-15"/>
+                         <label class="checkbox-alias" for="r-15">15:00</label>
+                          <input type="checkbox" name="rGroup" value="16" id="r-16"/>
+                          <label class="checkbox-alias" for="r-16">16:00</label>
+                      </div>
+                </div>
+                <div class="tab-pane fade" id="sat">
+                  <div class="hours mt-2 invisible-checkboxes" >
+                         <input type="checkbox" name="rGroup" value="1" id="r1a" checked/>
+                         <label class="checkbox-alias" for="r1a">01:00</label>
+                          <input type="checkbox" name="rGroup" value="2" id="r2a"/>
+                          <label class="checkbox-alias" for="r2a">02:00</label>
+                          <input type="checkbox" name="rGroup" value="3" id="r3a"/>
+                         <label class="checkbox-alias" for="r3a">03:00</label>
+                          <input type="checkbox" name="rGroup" value="4" id="r4a"/>
+                          <label class="checkbox-alias" for="r4a">04:00</label>
+                          <input type="checkbox" name="rGroup" value="5" id="r5aa"/>
+                         <label class="checkbox-alias" for="r5a">05:00</label>
+                          <input type="checkbox" name="rGroup" value="6" id="r6a"/>
+                          <label class="checkbox-alias" for="r6a">06:00</label>
+                          <input type="checkbox" name="rGroup" value="7" id="r7a"/>
+                         <label class="checkbox-alias" for="r7a">07:00</label>
+                          <input type="checkbox" name="rGroup" value="8" id="r8a"/>
+                          <label class="checkbox-alias" for="r8a">08:00</label>
+                          <input type="checkbox" name="rGroup" value="9" id="r9a"/>
+                         <label class="checkbox-alias" for="r9a">09:00</label>
+                          <input type="checkbox" name="rGroup" value="10" id="r10a"/>
+                          <label class="checkbox-alias" for="r10a">10:00</label>
+                          <input type="checkbox" name="rGroup" value="11" id="r11a"/>
+                         <label class="checkbox-alias" for="r11a">11:00</label>
+                          <input type="checkbox" name="rGroup" value="12" id="r12a"/>
+                          <label class="checkbox-alias" for="r12a">12:00</label>
+                          <input type="checkbox" name="rGroup" value="13" id="r13a"/>
+                         <label class="checkbox-alias" for="r13a">13:00</label>
+                          <input type="checkbox" name="rGroup" value="14" id="r14a"/>
+                          <label class="checkbox-alias" for="r14a">14:00</label>
+                          <input type="checkbox" name="rGroup" value="15" id="r15a"/>
+                         <label class="checkbox-alias" for="r15a">15:00</label>
+                          <input type="checkbox" name="rGroup" value="16" id="r16a"/>
+                          <label class="checkbox-alias" for="r16a">16:00</label>
+                      </div>
+                </div>
+                <div class="tab-pane fade" id="sun">
+                  <div class="hours mt-2 invisible-checkboxes" >
+                         <input type="checkbox" name="rGroup" value="1" id="r1b" checked/>
+                         <label class="checkbox-alias" for="r1b">01:00</label>
+                          <input type="checkbox" name="rGroup" value="2" id="r2b"/>
+                          <label class="checkbox-alias" for="r2b">02:00</label>
+                          <input type="checkbox" name="rGroup" value="3" id="r3b"/>
+                         <label class="checkbox-alias" for="r3b">03:00</label>
+                          <input type="checkbox" name="rGroup" value="4" id="r4b"/>
+                          <label class="checkbox-alias" for="r4b">04:00</label>
+                          <input type="checkbox" name="rGroup" value="5" id="r5b"/>
+                         <label class="checkbox-alias" for="r5b">05:00</label>
+                          <input type="checkbox" name="rGroup" value="6" id="r6b"/>
+                          <label class="checkbox-alias" for="r6b">06:00</label>
+                          <input type="checkbox" name="rGroup" value="7" id="r7b"/>
+                         <label class="checkbox-alias" for="r7b">07:00</label>
+                          <input type="checkbox" name="rGroup" value="8" id="r8b"/>
+                          <label class="checkbox-alias" for="r8b">08:00</label>
+                          <input type="checkbox" name="rGroup" value="9" id="r9b"/>
+                         <label class="checkbox-alias" for="r9b">09:00</label>
+                          <input type="checkbox" name="rGroup" value="10" id="r10b"/>
+                          <label class="checkbox-alias" for="r10b">10:00</label>
+                          <input type="checkbox" name="rGroup" value="11" id="r11b"/>
+                         <label class="checkbox-alias" for="r11b">11:00</label>
+                          <input type="checkbox" name="rGroup" value="12" id="r12b"/>
+                          <label class="checkbox-alias" for="r12b">12:00</label>
+                          <input type="checkbox" name="rGroup" value="13" id="r13b"/>
+                         <label class="checkbox-alias" for="r13b">13:00</label>
+                          <input type="checkbox" name="rGroup" value="14" id="r14b"/>
+                          <label class="checkbox-alias" for="r14b">14:00</label>
+                          <input type="checkbox" name="rGroup" value="15" id="r15b"/>
+                         <label class="checkbox-alias" for="r15b">15:00</label>
+                          <input type="checkbox" name="rGroup" value="16" id="r16b"/>
+                          <label class="checkbox-alias" for="r16b">16:00</label>
+                      </div>
+                </div>
+            </div>
               </div>
 
-              <h4 class="heading-20-white mt-4">Avoid services</h4>
+              <h4 class="heading-20-white mt-4">Services</h4>
               <p>Lorem ipsum dolor sit amet, consectetuer adipisc</p>
               <ul class="avoid-service-list">
                 <li>
@@ -1194,7 +1410,7 @@
                 </li>
               </ul>
               <div class="text-center mt-3">
-                <button class="theme-btn white-btn" data-bs-toggle="modal" data-bs-target="#avoidServicesModal"><span
+                <button class="theme-btn white-btn addServices" data-bs-toggle="modal" data-bs-target="#avoidServicesModal"><span
                     class="add">+</span> Add services</button>
               </div>
 
@@ -1248,27 +1464,17 @@
               <div class="main-category">
                 <label class="c-checkbox"><input type="checkbox" class="d-none"><span class="checker"></span></label>
                 <a class="collapsed" data-bs-toggle="collapse" href="#manicureList" role="button" aria-expanded="false"
-                  aria-controls="manicureList">Manicure</a>
+                  aria-controls="manicureList">Avoid services</a>
               </div>
               <div class="collapse collapse-data" id="manicureList">
-                <label class="c-checkbox">
+                <label v-for="service in allservices" :key="service.id"  class="c-checkbox">
                   <input type="checkbox" class="d-none">
                   <span class="checker"></span>
-                  <p>Classic Manicure</p>
-                </label>
-                <label class="c-checkbox">
-                  <input type="checkbox" class="d-none">
-                  <span class="checker"></span>
-                  <p>Deluxe Manicure</p>
-                </label>
-                <label class="c-checkbox">
-                  <input type="checkbox" class="d-none">
-                  <span class="checker"></span>
-                  <p>Jelly Manicure</p>
+                  <p>{{ service.name }}</p>
                 </label>
               </div>
             </div>
-            <div class="list">
+            <!-- <div class="list">
               <div class="main-category">
                 <label class="c-checkbox"><input type="checkbox" class="d-none"><span class="checker"></span></label>
                 <a class="collapsed" data-bs-toggle="collapse" href="#pedicureList" role="button" aria-expanded="false"
@@ -1291,7 +1497,7 @@
                   <p>Jelly pedicure</p>
                 </label>
               </div>
-            </div>
+            </div> -->
             <div class="modal-btns text-center">
               <button type="submit" class="theme-btn yellow-btn w-auto">Save</button>
             </div>
@@ -2065,6 +2271,7 @@
  import axios from 'axios'
  import Swal from 'sweetalert2'
  import router from '../router'
+ 
  export default {
    
  
@@ -2078,6 +2285,7 @@
      categories: [],
      category:[],
      services:[],
+     allservices:[],
      packages:[],
      filet:'',
      imageFile:'images/dummy-img.png',
@@ -2117,7 +2325,15 @@
         })
   },
 
-
+  fetchData() {
+      axios.get('http://127.0.0.1:8000/api/list')
+        .then(response => {
+          this.allservices = response.data; // Store the fetched data in the dataList property
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
    methods:{
       onChange(e) {
         this.file = e.target.files[0];
@@ -2253,7 +2469,7 @@
           }
       }
       let data = new FormData();
-      
+       
       data.append('user_id',localStorage.getItem('usertoken'));
       data.append('image', this.filep);
       data.append('package_name', this.form.package_name);
@@ -2420,10 +2636,11 @@
         });
 
     });
+    $(document).on('click','.addServices',function(){
+      fetchData();
+    });
+ </script>     
+<script>
 
-    function toggleTab(e){
-        var hrefVal = $(e).attr('href');
-        $('.nav-tabs li').removeClass('active');
-        $('.nav-tabs li[data-active="'+hrefVal+'"]').addClass('active');
-    }
- </script>       
+
+</script>
