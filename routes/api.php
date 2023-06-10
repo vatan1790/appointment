@@ -31,3 +31,5 @@ Route::resource('category', CategoryController::class);
 Route::resource('service', ServiceController::class);
 Route::resource('package', PackageController::class);
 Route::resource('technician', TechnicianController::class);
+
+Route::post('tempservice',[ServiceController::class, 'tempservice']);

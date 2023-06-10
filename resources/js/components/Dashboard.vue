@@ -1431,22 +1431,16 @@
           </div>
           <div class="avoid-services">
             <div class="d-flex align-items-center a-heading">
-              <h4 class="heading-20-white">Avoid services</h4>
+              <h4 class="heading-20-white">Services</h4>
               <a href="#" class="close ms-auto"><img src="images/cross-yellow.svg" height="10" alt="Close"></a>
             </div>
             <div class="list">
-              <div class="main-category">
+              <div  v-for="service in services" :key="service.id"  class="main-category">
                 <label class="c-checkbox"><input type="checkbox" class="d-none"><span class="checker"></span></label>
                 <a class="collapsed" data-bs-toggle="collapse" href="#manicureList" role="button" aria-expanded="false"
-                  aria-controls="manicureList">Avoid services</a>
+                  aria-controls="manicureList">{{ service.name }}</a>
               </div>
-              <div class="collapse collapse-data" id="manicureList">
-                <label v-for="service in allservices" :key="service.id"  class="c-checkbox">
-                  <input type="checkbox" class="d-none">
-                  <span class="checker"></span>
-                  <p>{{ service.name }}</p>
-                </label>
-              </div>
+              
             </div>
             <!-- <div class="list">
               <div class="main-category">
@@ -2291,7 +2285,7 @@
 
         axios.get('/api/service?user_id='+localStorage.getItem('usertoken'))
         .then((resp) =>{
-          this.services = resp.data.service
+          this.services = resp.data.service          
         })
 
         axios.get('/api/package?user_id='+localStorage.getItem('usertoken'))
@@ -2303,19 +2297,9 @@
         .then((resp) =>{
           this.technician = resp.data.technician
           
-          console.log(resp.data.technician)
         })
   },
 
-  fetchData() {
-      axios.get('http://127.0.0.1:8000/api/list')
-        .then(response => {
-          this.allservices = response.data; // Store the fetched data in the dataList property
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
    methods:{
       onChange(e) {
         this.file = e.target.files[0];

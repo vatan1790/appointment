@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Service;
+use App\Models\Temp_service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 
 class ServiceController extends Controller
 {
@@ -76,6 +76,30 @@ class ServiceController extends Controller
         }else{
             return response()->json(['error'], 400);
         }
+    }
+
+    public function tempservice(Request $request){
+        $message = array();
+        $validator = Validator::make($request->all(), [      
+            'service_id' => 'required',
+            'user_id' =>'required'
+        ],$message);
+
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
+        }
+        $temp_service = Temp_service::create([
+            'service_id' => $request->service_id,
+            'user_id'=>$request->user_id
+        ]);
+        if($temp_service){
+           return response()->json(compact('temp_service'));
+        }else{
+            return response()->json(['error'], 400);
+        }
+        
     }
 
     public function show(Service $service)
