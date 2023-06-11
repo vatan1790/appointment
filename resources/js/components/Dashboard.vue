@@ -1429,14 +1429,20 @@
           <div class="heading">
             <h3><img src="images/technician.svg" alt="Technician">Technician</h3>
           </div>
+            
           <div class="avoid-services">
+          
+            <form v-on:submit.prevent="save_temp_service">  
             <div class="d-flex align-items-center a-heading">
               <h4 class="heading-20-white">Services</h4>
               <a href="#" class="close ms-auto"><img src="images/cross-yellow.svg" height="10" alt="Close"></a>
             </div>
             <div class="list">
               <div  v-for="service in services" :key="service.id"  class="main-category">
-                <label class="c-checkbox"><input type="checkbox" class="d-none"><span class="checker"></span></label>
+                <label class="c-checkbox" :for="'input-age-'+service.id" >
+                  <input type="checkbox"  :id="'input-age-'+service.id" v-model="temservice" :value="service.id" class="d-none">
+                  <span class="checker"></span>
+                </label>
                 <a class="collapsed" data-bs-toggle="collapse" href="#manicureList" role="button" aria-expanded="false"
                   aria-controls="manicureList">{{ service.name }}</a>
               </div>
@@ -1469,6 +1475,7 @@
             <div class="modal-btns text-center">
               <button type="submit" class="theme-btn yellow-btn w-auto">Save</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
@@ -2256,6 +2263,7 @@
      allservices:[],
      technician:[],
      packages:[],
+     temservice:'',
      filet:'',
      imageFile:'images/dummy-img.png',
      imageFile2:'images/dummy-img.png',
@@ -2370,6 +2378,47 @@
           this.notifmsg_s = e.response.data
         })
       },
+      save_temp_service(e){
+        e.preventDefault();
+        let existingObj = this;
+        const config = {
+            headers: {
+                "Accept": "application/json",
+                'content-type': 'multipart/form-data',
+            }
+        }
+        let data = new FormData();
+        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('service_id',  this.temservice);
+        axios
+        .post('/api/tempservice', data, config)
+        .then((resp) =>{
+            this.temservice = '';
+            if(resp['data']['tempservice'])
+            {
+            
+              this.temservice = '';
+              console.log(resp['data']['tempservice']);
+            }
+            else
+            {
+
+            Swal.fire({
+              title: 'OPPS',
+              text:   "error",
+              icon: 'warning',
+            
+          });
+              
+            }
+            
+        })
+        .catch(e => {
+          this.notifmsg_t = e.response.data
+        })
+      },
+
+
       save_technician(e){
         e.preventDefault();
         let existingObj = this;
