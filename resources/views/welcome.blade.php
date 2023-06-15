@@ -61,6 +61,18 @@ ul.days li .active {
 ul.days.text-center.nav.nav-tabs li a {
     color: #fff;
 }
+.main_check0{
+    background: #fff;
+    color: #606060;
+    padding: 8px 15px 0px 20px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.main_check0 label{
+    padding-left:15px;
+
+}
 </style>
 <body >
     <div id="app">

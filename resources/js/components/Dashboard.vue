@@ -1437,17 +1437,27 @@
               <h4 class="heading-20-white">Services</h4>
               <a href="#" class="close ms-auto"><img src="images/cross-yellow.svg" height="10" alt="Close"></a>
             </div>
-            <div class="list">
+
+            <div class="main_check">
+                  <div class="main_check0" v-for="(service,index) in services" :key="service.id">
+                      <input type="checkbox" name="check"  :id="'input-age-'+service.id" :value="service.id" v-model="checkedServices">
+                      <label :for="'input-age-'+service.id">{{ service.name }}</label>
+                  </div>
+                  
+                </div>
+
+            <!-- <div class="list">
               <div  v-for="service in services" :key="service.id"  class="main-category">
                 <label class="c-checkbox" :for="'input-age-'+service.id" >
                   <input type="checkbox"  :id="'input-age-'+service.id" v-model="temservice" :value="service.id" class="d-none">
                   <span class="checker"></span>
                 </label>
+
                 <a class="collapsed" data-bs-toggle="collapse" href="#manicureList" role="button" aria-expanded="false"
                   aria-controls="manicureList">{{ service.name }}</a>
               </div>
               
-            </div>
+            </div> -->
             <!-- <div class="list">
               <div class="main-category">
                 <label class="c-checkbox"><input type="checkbox" class="d-none"><span class="checker"></span></label>
@@ -1577,8 +1587,8 @@
           </div>
 
           <div class="customer-list mt-4">
-            <div class="box" data-bs-toggle="modal" data-bs-target="#customerDetailModal">
-              <p><img src="images/user-green.svg" alt="Customer">Adam Dinh</p>
+            <div class="box" data-bs-toggle="modal" data-bs-target="#customerDetailModal" v-for="customer in customers" :key="customer.id">
+              <p><img src="images/user-green.svg" alt="Customer">{{customer.fname}} {{customer.lname}}</p>
               <span class="new">New</span>
             </div>
             <div class="box">
@@ -2258,12 +2268,14 @@
      notifmsg_s: '',
      notifmsg_t:'',
      categories: [],
+     customers: [],
      category:[],
      services:[],
      allservices:[],
      technician:[],
      packages:[],
-     temservice:'',
+     checkedServices:[],
+     tempservices:[],
      filet:'',
      imageFile:'images/dummy-img.png',
      imageFile2:'images/dummy-img.png',
@@ -2305,6 +2317,13 @@
         .then((resp) =>{
           this.technician = resp.data.technician
           
+        })
+
+
+        
+        axios.get('/api/customer?user_id='+localStorage.getItem('usertoken'))
+        .then((resp) =>{
+          this.customers = resp.data.customer    
         })
   },
 
@@ -2389,29 +2408,12 @@
         }
         let data = new FormData();
         data.append('user_id',localStorage.getItem('usertoken'));
-        data.append('service_id',  this.temservice);
+        data.append('service_id',  this.checkedServices);
         axios
         .post('/api/tempservice', data, config)
         .then((resp) =>{
-            this.temservice = '';
-            if(resp['data']['tempservice'])
-            {
-            
-              this.temservice = '';
-              console.log(resp['data']['tempservice']);
-            }
-            else
-            {
-
-            Swal.fire({
-              title: 'OPPS',
-              text:   "error",
-              icon: 'warning',
-            
-          });
-              
-            }
-            
+            this.checkedServices = '';
+            this.tempservices = resp['data']['service'];
         })
         .catch(e => {
           this.notifmsg_t = e.response.data
@@ -2639,9 +2641,6 @@
 
  
  $(document).ready(function(){
-
- });
- $(document).ready(function(){
         $("#desktop").click(function(){
             $("#sideBarMenu").fadeToggle();
         });
@@ -2651,9 +2650,7 @@
         });
 
     });
-    $(document).on('click','.addServices',function(){
-      fetchData();
-    });
+   
  </script>     
 <script>
 

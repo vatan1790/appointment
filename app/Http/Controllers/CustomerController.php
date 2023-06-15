@@ -13,22 +13,21 @@ use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        try{
-            if(!$user = JWTAuth::parseToken()->authenticate()){
-                return response()->json(['user_not_found'], 400);
-            }
-            $customer = Customer::where('user_id',$user->id)->get();    
-            
-            return response()->json(compact('customer'));  
-        }catch (TokenExpiredException $e){
-            return response()->json(['token_expired'], $e->getStatusCode());
-        }catch (TokenInvalidException $e){
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        }catch (JWTException $e){
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
+        $message = array();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ],$message);
+
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
+        } 
+        $customer = Customer::where('user_id',$request->user_id)->get();
+        
+        return response()->json(compact('customer'));
          
     }
 

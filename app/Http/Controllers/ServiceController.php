@@ -95,7 +95,8 @@ class ServiceController extends Controller
             'user_id'=>$request->user_id
         ]);
         if($temp_service){
-           return response()->json(compact('temp_service'));
+           $service = Temp_service::where('user_id',$request->user_id)->get();  
+           return response()->json(compact('service'));
         }else{
             return response()->json(['error'], 400);
         }
