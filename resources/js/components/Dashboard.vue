@@ -789,42 +789,21 @@
             <a href="#" class="add-category-btn ms-auto" data-bs-toggle="modal" data-bs-target="#addCategoryModal">+</a>
           </div>
           <div class="tab-content">
-                <div id="home" class="tab-pane fade in active show">
-                  <div class="service-listing">
-                    <div class="service-box all package">
-                      <div class="d-flex align-items-center">
-                        <figure><img src="images/manicure.png" alt="Package"></figure>
-                        <div class="text">
-                          <h4>Package <span>2</span></h4>
-                          <p>M1 - 30’</p>
-                        </div>
-                        <h6 class="ms-auto">30 $</h6>
-                      </div>
+            <div id="home" class="tab-pane fade in active show">
+              <div class="service-listing">
+                <div class="service-box all package">
+                  <div class="d-flex align-items-center">
+                    <figure><img src="images/manicure.png" alt="Package"></figure>
+                    <div class="text">
+                      <h4>Package <span>2</span></h4>
+                      <p>M1 - 30’</p>
                     </div>
-                    <div class="service-box all manicure">
-                      <div class="d-flex align-items-center">
-                        <figure><img src="images/manicure.png" alt="Manicure"></figure>
-                        <div class="text">
-                          <h4>Classic Manicure <span>2</span></h4>
-                          <p>M1 - 30’</p>
-                        </div>
-                        <h6 class="ms-auto">30 $</h6>
-                      </div>
-                    </div>
-                    <div class="service-box all pedicure">
-                      <div class="d-flex align-items-center">
-                        <figure><img src="images/manicure.png" alt="Pedicure"></figure>
-                        <div class="text">
-                          <h4>Classic Pedicure</h4>
-                          <p>M1 - 30’</p>
-                        </div>
-                        <h6 class="ms-auto">30 $</h6>
-                      </div>
-                    </div>
+                    <h6 class="ms-auto">30 $</h6>
+                  </div>
+                </div>
               </div>
-
-        </div>
-            <div class="service-box all empty-service manicure">
+            </div>
+            <div class="service-box all empty-service manicure active show">
               <div class="text-center">
                 <p>Category for natural manicure services Lorem ipsum dolor sit amet,</p>
               </div>
@@ -1366,22 +1345,11 @@
               <h4 class="heading-20-white mt-4">Services</h4>
               <p>Lorem ipsum dolor sit amet, consectetuer adipisc</p>
               <ul class="avoid-service-list">
-                <li>
+                <li v-for="temps in tempservices" :key="temps.id">
                   <a href="#" class="remove"><img src="images/cross-yellow.svg" height="8" alt="Remove"></a>
-                  <p>Spa Manicure</p>
+                  <p>{{temps.name}}</p>
                 </li>
-                <li>
-                  <a href="#" class="remove"><img src="images/cross-yellow.svg" height="8" alt="Remove"></a>
-                  <p>All Waxing Services</p>
-                </li>
-                <li>
-                  <a href="#" class="remove"><img src="images/cross-yellow.svg" height="8" alt="Remove"></a>
-                  <p>Pink & White</p>
-                </li>
-                <li>
-                  <a href="#" class="remove"><img src="images/cross-yellow.svg" height="8" alt="Remove"></a>
-                  <p>All Pedicure Services</p>
-                </li>
+               
               </ul>
               <div class="text-center mt-3">
                 <button class="theme-btn white-btn addServices" data-bs-toggle="modal" data-bs-target="#avoidServicesModal"><span
@@ -1666,6 +1634,36 @@
                     <h5 class="timing">08:00AM, Sep 10</h5>
                   </div>
                   <span class="ms-auto c-label yellow-label">Pending</span>
+                </div>
+              </div>
+              <div class="service-box">
+                <div class="d-flex align-items-center">
+                  <figure><img src="images/manicure.png" alt="Package"></figure>
+                  <div class="text">
+                    <h4>Package</h4>
+                    <p>M1 - 30’</p>
+                  </div>
+                  <h6 class="ms-auto">30 $</h6>
+                </div>
+              </div>
+              <div class="service-box">
+                <div class="d-flex align-items-center">
+                  <figure><img src="images/manicure.png" alt="Package"></figure>
+                  <div class="text">
+                    <h4>Package</h4>
+                    <p>M1 - 30’</p>
+                  </div>
+                  <h6 class="ms-auto">30 $</h6>
+                </div>
+              </div>
+              <div class="service-box">
+                <div class="d-flex align-items-center">
+                  <figure><img src="images/manicure.png" alt="Package"></figure>
+                  <div class="text">
+                    <h4>Package</h4>
+                    <p>M1 - 30’</p>
+                  </div>
+                  <h6 class="ms-auto">30 $</h6>
                 </div>
               </div>
               <div class="service-box">
@@ -2412,7 +2410,9 @@
         axios
         .post('/api/tempservice', data, config)
         .then((resp) =>{
-            this.checkedServices = '';
+            this.checkedServices = [];
+            $('#avoidServicesModal').modal('hide');
+            $('#createTechnicianModal').modal('show');
             this.tempservices = resp['data']['service'];
         })
         .catch(e => {
