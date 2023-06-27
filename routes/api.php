@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\TechnicianController;
+use App\Http\Controllers\ScheduleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,7 +30,11 @@ Route::get('profile',[UserController::class, 'getAuthenticatedUser']);
 Route::resource('customer', CustomerController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('service', ServiceController::class);
+Route::resource('schedule', ScheduleController::class);
 Route::resource('package', PackageController::class);
 Route::resource('technician', TechnicianController::class);
 
 Route::post('tempservice',[ServiceController::class, 'tempservice']);
+Route::get('tempservice',[ServiceController::class, 'tempserviceList']);
+Route::get('deletetemp',[ServiceController::class, 'deletetemp']);
+Route::get('deleteSchedule',[ScheduleController::class, 'deleteSchedule']);

@@ -90,19 +90,57 @@ class ServiceController extends Controller
         
             return response()->json( $message , 400);
         }
-        $temp_service = Temp_service::create([
-            'service_id' => $request->service_id,
-            'user_id'=>$request->user_id
-        ]);
-        if($temp_service){
-           $service = Temp_service::where('user_id',$request->user_id)->get();  
-           return response()->json(compact('service'));
-        }else{
-            return response()->json(['error'], 400);
+        $service = explode(',',$request->service_id);
+        for ($i=0; $i <count($service) ; $i++) { 
+            $exist = Temp_service::where(array('user_id'=>$request->user_id,'service_id'=>$service[$i]))->get()->toArray();
+            if(empty($exist)){
+                $temp_service = Temp_service::create([
+                    'service_id' => $service[$i],
+                    'user_id'=>$request->user_id
+                ]);
+            }
+            
         }
+        
+        $service = Temp_service::with('service')->where('user_id',$request->user_id)->get();  
+        return response()->json(compact('service'));
         
     }
 
+    public function tempserviceList(Request $request){
+        $message = array();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ],$message);
+
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
+        }
+        $service = Temp_service::with('service')->where('user_id',$request->user_id)->get();  
+        return response()->json(compact('service'));  
+           
+    }
+
+    public function deletetemp(Request $request){
+        $message = array();
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'user_id' => 'required'
+        ],$message);
+
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
+        }
+        Temp_service::where('id',$request->id)->delete(); 
+        $service = Temp_service::with('service')->where('user_id',$request->user_id)->get();  
+        return response()->json(compact('service'));  
+    }
+
+    
     public function show(Service $service)
     {
         try{

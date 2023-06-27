@@ -26,6 +26,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "moment": "^2.29.4",
         "sweetalert2": "^11.7.3",
         "vform": "^2.1.2",
         "vue-google-charts": "^1.1.0",

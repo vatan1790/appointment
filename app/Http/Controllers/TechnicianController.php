@@ -34,6 +34,7 @@ class TechnicianController extends Controller
 
     public function store(Request $request)
     {       
+        return $request;
         $message = array();
         $validator = Validator::make($request->all(), [      
                    
@@ -59,6 +60,9 @@ class TechnicianController extends Controller
             'fname' => $request->fname,
             'lname' => $request->lname,
             'image' => $path,
+            'lname' => $request->lname,
+            'services' => $request->services,
+            'schedules'=>$request->schedules,
             'user_id'=>$request->user_id
         ]);
         if($technician){
