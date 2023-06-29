@@ -133,4 +133,9 @@ class CustomerController extends Controller
 
         
     }
+
+    public function searchuser(Request $request){
+        $customer = Customer::where('user_id',$request->user_id)->where('phone', 'LIKE', $request->number.'%')->get();
+        return response()->json(compact('customer'));
+    }
 }

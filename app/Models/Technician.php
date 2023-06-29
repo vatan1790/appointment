@@ -9,6 +9,6 @@ class Technician extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'fname', 'lname', 'image', 'status',
+        'user_id', 'fname', 'lname', 'image', 'status','services','schedules','workingTime'
     ];
 }
