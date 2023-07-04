@@ -383,39 +383,41 @@
             <a href="#" class="service-toggle ms-auto" data-bs-toggle="modal" data-bs-target="#newpackageModal"><img
                 src="images/toggle-yellow.svg" alt="Toggle"></a>
           </div>
+          
           <div class="categories-list d-flex align-items-center">
             <div class="listing">
-              <ul class="nav nav-tabs" v-for="cat in category" :key="cat.id">
-                <li><a  data-toggle="tab" href="#home/<?= cat.id ?>"  class="category-li active" data-filter=".all">{{cat.name}}</a></li>
+              <ul class="nav nav-tabs">
+                <li  v-for="(cat,index) in category" :key="index"><a class="category-li" :class="{ active: isActive(index) }"  data-toggle="tab" :href="'#home'+cat.id">{{cat.name}}</a></li>
               </ul>
             </div>
             <a href="#" class="add-category-btn ms-auto" data-bs-toggle="modal" data-bs-target="#addCategoryModal">+</a>
           </div>
-          <div class="tab-content">
-            <div id="home" class="tab-pane fade in active show">
-              <div class="service-listing">
-                <div class="service-box all package">
-                  <div class="d-flex align-items-center">
-                    <figure><img src="images/manicure.png" alt="Package"></figure>
-                    <div class="text">
-                      <h4>Package <span>2</span></h4>
-                      <p>M1 - 30’</p>
+          <div class="tab-content" >
+              <div :id="'home'+cat.id" class="container tab-pane " :class="{ active: isActive(index) }" v-for="(cat,index) in category" :key="index"><br>
+                <div class="service-listing"  >
+                  <div class="service-box all package " style="display: block!important;" > 
+                    <div class="d-flex align-items-center">
+                      <figure><img src="images/manicure.png" alt="Package"></figure>
+                      <div class="text">
+                        <h4>Package <span>2</span></h4>
+                        <p>M1 - 30’</p>
+                      </div>
+                      <h6 class="ms-auto">30 $</h6>
                     </div>
-                    <h6 class="ms-auto">30 $</h6>
                   </div>
+                </div>
+                <div class="service-box all empty-service manicure"  style="display: block!important;">
+                  <div class="text-center">
+                    <p>Category for natural manicure services Lorem ipsum dolor sit amet,</p>
+                  </div>
+                </div>
+                <div class="mt-5 text-center">
+                  <a href="javascript:void(0);" @click="getCategoryId(cat.id)" class="theme-btn white-btn w-auto" data-bs-toggle="modal"
+                  data-bs-target="#addServiceModal"><span class="plus">+</span> Add service</a>
                 </div>
               </div>
             </div>
-            <div class="service-box all empty-service manicure active show">
-              <div class="text-center">
-                <p>Category for natural manicure services Lorem ipsum dolor sit amet,</p>
-              </div>
-            </div>
-            <div class="mt-5 text-center">
-              <a href="#" class="theme-btn white-btn w-auto" data-bs-toggle="modal"
-              data-bs-target="#addServiceModal"><span class="plus">+</span> Add service</a>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -451,6 +453,8 @@
                 <input type="text" class="form-control" placeholder="Name" name="service_name" id="service_name" v-model="form.service_name">
               </div>
               <div class="form-group form-group-50 text-form-group">
+                <input type="text" :style="{ display: 'none' }" class="form-control" id="category_id" name="category_id" v-model="form.category_id">
+                
                 <input type="tel" class="form-control" placeholder="Durations" name="duration" v-model="form.duration">
                 <p>mins</p>
               </div>
@@ -963,7 +967,7 @@
               <h4 class="heading-20-white mt-4">Block schedule</h4>
               <p>Lorem ipsum dolor sit amet, consectetuer adipisc</p>
               <ul class="avoid-service-list">
-                <li class="w-100" v-for="(sched,index) in schedules" :key="sched.id">
+                <li class="w-100" v-for="(sched) in schedules" :key="sched.id">
                   <a href="#" class="remove"><img src="images/cross-yellow.svg" height="8" @click="deleteSchedule(sched.id)" alt="Remove"></a>
                   <input type="checkbox"  :value="sched.id"  checked: true v-model="form.schedules" >
                   <p>Sat, Sep 16 <span class="float-end">{{sched.from_time }}-{{sched.to_time}}</span></p>
@@ -1012,7 +1016,7 @@
             </div>
 
             <div class="main_check">
-                  <div class="main_check0" v-for="(service,index) in services" :key="service.id">
+                  <div class="main_check0" v-for="(service,index) in services" :key="index">
                       <input type="checkbox" name="check"  :id="'input-age-'+service.id" :value="service.id" v-model="checkedServices">
                       <label :for="'input-age-'+service.id">{{ service.name }}</label>
                   </div>
@@ -1516,6 +1520,7 @@
      checkedServices:[],
      tempservices:[],
      schedules:[],
+     activeIndex: 0,
      filet:'',
      imageFile:'images/dummy-img.png',
      imageFile2:'images/dummy-img.png',
@@ -1534,6 +1539,7 @@
        from_time:'',
        to_time:'',
        package_name:'',
+       category_id:'',
        services:[],
        schedules:[],
        workingTime:[],
@@ -1581,6 +1587,12 @@
   },
 
    methods:{
+      isActive(index) {
+        return index === this.activeIndex;
+      },
+      getCategoryId(id){
+        this.form.category_id = id;
+      },
       deleteItem(itemId) {
                // Make the API request to delete the item
          axios
@@ -1632,6 +1644,7 @@
         data.append('service_name',  this.form.service_name);
         data.append('duration',  this.form.duration);
         data.append('price',  this.form.price);
+        data.append('category_id', this.form.category_id);
         data.append('description', this.form.description);
         data.append('status',  this.form.status);
         axios
@@ -1639,6 +1652,7 @@
         .then((resp) =>{
             this.form.service_name = '';
             this.form.duration = '';
+            this.form.category_id='';
             this.form.price = '';
             this.form.description = '';
             this.form.status = '';

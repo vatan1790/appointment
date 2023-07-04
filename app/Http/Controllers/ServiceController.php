@@ -25,7 +25,7 @@ class ServiceController extends Controller
         
             return response()->json( $message , 400);
         }
-        $service = Service::where('user_id',$request->user_id)->get();  
+        $service = Service::with('categorylist')->where('user_id',$request->user_id)->get();  
         return response()->json(compact('service'));  
          
     }
@@ -43,11 +43,12 @@ class ServiceController extends Controller
         $message = array();
         $validator = Validator::make($request->all(), [      
                    
-            'service_name' => 'required|string|max:255',
+            'service_name' => 'required',
             'duration' => 'required',
             'price' => 'required',
             'description' => 'required',
-            'user_id' =>'required'
+            'user_id' =>'required',
+            'category_id'=>'required'
         ],$message);
 
         if($validator->fails()){
@@ -69,10 +70,11 @@ class ServiceController extends Controller
             'price' => $request->price,
             'description' => $request->description,
             'image' => $path,
+            'category_id' => $request->category_id,
             'user_id'=>$request->user_id
         ]);
         if($service){
-           return response()->json(compact('service'));
+            return response()->json(compact('service'));
         }else{
             return response()->json(['error'], 400);
         }
