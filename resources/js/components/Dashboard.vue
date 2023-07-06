@@ -394,15 +394,16 @@
           </div>
           <div class="tab-content" >
               <div :id="'home'+cat.id" class="container tab-pane " :class="{ active: isActive(index) }" v-for="(cat,index) in category" :key="index"><br>
-                <div class="service-listing"  >
+                <div class="service-listing" v-for="catservice in cat.servicelist" :key="catservice.id" >
                   <div class="service-box all package " style="display: block!important;" > 
                     <div class="d-flex align-items-center">
                       <figure><img src="images/manicure.png" alt="Package"></figure>
                       <div class="text">
-                        <h4>Package <span>2</span></h4>
-                        <p>M1 - 30’</p>
+                        <h4>{{catservice.name}}</h4>
+                        <!-- <span>2</span> -->
+                        <p>M1 - {{catservice.duration}}’</p>
                       </div>
-                      <h6 class="ms-auto">30 $</h6>
+                      <h6 class="ms-auto">{{catservice.price}} $</h6>
                     </div>
                   </div>
                 </div>

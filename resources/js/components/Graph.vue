@@ -186,6 +186,8 @@
 
             <!--start all cases-->
             <div class="booking-body ">
+              <form v-on:submit.prevent="save_temp_service">  
+       
               <div class="form-group search-group">
                 <label class="input-label">Add Customer</label>
                 <input type="text" class="form-control" placeholder="Search by phone"  v-model="searchValue" @keyup="getData">
@@ -194,12 +196,48 @@
               </div>
               <div>
                 <ul id="myUL"  v-for="cust in customer" :key="cust.id">
-                  <li><a href="javascript:void(0);"> <label><input type="checkbox" /> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li>
+                  <li><a href="javascript:void(0);"> <label><input type="radio" :value="cust.id" v-model="checkedCustomer" /> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li>
                 </ul>
               </div>
               
               <div class="mt-4">
                 <h4 class="heading-20-white">Add service</h4>
+                <div class="booking-body ">
+              <div class="categories-list d-flex align-items-center">
+                <div class="listing">
+                  <ul class="nav nav-tabs">
+                    <li  v-for="(cat,index) in category" :key="index"><a class="category-li" :class="{ active: isActive(index) }"  data-toggle="tab" :href="'#home'+cat.id">{{cat.name}}</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-content" >
+              <div :id="'home'+cat.id" class="container tab-pane " :class="{ active: isActive(index) }" v-for="(cat,index) in category" :key="index"><br>
+                <div class="service-listing" v-for="catservice in cat.servicelist" :key="catservice.id" >
+                  <div class="service-box all package " style="display: block!important;" > 
+                    <div class="d-flex align-items-center">
+                      <figure>
+                        <img src="images/manicure.png" alt="Package">
+                        <input type="checkbox" name="check"  :id="'input-age-'+catservice.id" :value="catservice.id" v-model="checkedServices">
+                     
+                      </figure>
+                    
+                      <div class="text">
+                      
+                        <h4>{{catservice.name}}</h4>
+                        <!-- <span>2</span> -->
+                        <p>M1 - {{catservice.duration}}’</p>
+                      </div>
+                      <h6 class="ms-auto">{{catservice.price}} $</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>             
+              <!-- <div class="reverse-btns d-flex mt-5 position-relative">
+                <button type="submit" class="theme-btn yellow-btn mx-auto">Done</button>
+              </div> -->
+            </div>
+   
                 <div class="service-listing mt-4">
                   <h4 class="heading-20-white">Service</h4>
                   <div class="service-box mt-3">
@@ -216,12 +254,13 @@
                     </div>
                   </div>
                 </div>
-                <a href="#" class="service-add-btn">+</a>
+                <!-- <a href="#" class="service-add-btn">+</a> -->
               </div>
               <div class="btns d-flex mt-4">
                 <button class="theme-btn yellow-btn">Add Tech</button>
                 <button type="submit" class="theme-btn white-btn">Complete</button>
               </div>
+              </form>
             </div>
 
             <div class="booking-body d-none">
@@ -421,57 +460,7 @@
               </div>
             </div>
 
-            <div class="booking-body d-none">
-              <div class="add-service-pills">
-                <ul class="nav nav-tabs" id="myTab" role="tablist"  >
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent" type="button" role="tab" aria-controls="recent" aria-selected="true">Recent</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="manicure-tab" data-bs-toggle="tab" data-bs-target="#manicure" type="button" role="tab" aria-controls="manicure" aria-selected="false">Manicure</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pedicure-tab" data-bs-toggle="tab" data-bs-target="#pedicure" type="button" role="tab" aria-controls="pedicure" aria-selected="false">Pedicure</button>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="tab-content add-service-tab-list mt-3">
-                <div class="tab-pane active" id="recent" role="tabpanel" aria-labelledby="recent-tab" tabindex="0">
-                  <div class="service-box mt-3">
-                    <div class="d-flex align-items-center">
-                      <figure><img src="images/manicure.png" alt="Package"></figure>
-                      <div class="text">
-                        <h4>Package</h4>
-                        <p>M1 - 30’</p>
-                      </div>
-                      <h6 class="ms-auto">30 $</h6>
-                    </div>
-                  </div>
-                  <div class="service-box mt-3">
-                    <div class="d-flex align-items-center">
-                      <figure><img src="images/manicure.png" alt="Package"></figure>
-                      <div class="text">
-                        <h4>Package</h4>
-                        <p class="green-bar">M1 - 30’</p>
-                      </div>
-                      <h6 class="ms-auto">30 $</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="manicure" role="tabpanel" aria-labelledby="manicure-tab" tabindex="0">
-
-                </div>
-                <div class="tab-pane" id="pedicure" role="tabpanel" aria-labelledby="pedicure-tab" tabindex="0">
-
-                </div>
-              </div>
-              
-              <div class="reverse-btns d-flex mt-5 position-relative">
-                <button type="submit" class="theme-btn yellow-btn mx-auto">Done</button>
-              </div>
-            </div>
-
+            
             <div class="booking-body">
               <div class="technician-listing">
                 <h4>Select technician avaiable</h4>
@@ -560,11 +549,19 @@ export default {
       data(){
       return {
         technician:[],
+        category:[],
         searchValue:'',
         customer:'',
+        activeIndex: 0,
+        category_id:''
       }
     },
     created(){
+      
+      axios.get('/api/category?user_id='+localStorage.getItem('usertoken'))
+        .then((resp) =>{
+          this.category = resp.data.category
+        }),
       axios.get('/api/technician?user_id='+localStorage.getItem('usertoken'))
       .then((resp) =>{
         this.technician = resp.data.technician
@@ -572,6 +569,12 @@ export default {
       })
     },
     methods: {
+      isActive(index) {
+        return index === this.activeIndex;
+      },
+      getCategoryId(id){
+        this.category_id = id;
+      },
       getData() {
         axios.get('/api/searchuser?user_id='+localStorage.getItem('usertoken')+'&number='+this.searchValue)
         .then((resp) =>{

@@ -25,7 +25,7 @@ class CategoryController extends Controller
         
             return response()->json( $message , 400);
         } 
-        $category = Category::where('user_id',$request->user_id)->get();
+        $category = Category::with('servicelist')->where('user_id',$request->user_id)->get();
         
         return response()->json(compact('category'));
     }
