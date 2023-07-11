@@ -94,7 +94,7 @@ class ServiceController extends Controller
         }
         $service = explode(',',$request->service_id);
         for ($i=0; $i <count($service) ; $i++) { 
-            $exist = Temp_service::where(array('user_id'=>$request->user_id,'service_id'=>$service[$i]))->get()->toArray();
+            $exist = Temp_service::with('service_id')->where(array('user_id'=>$request->user_id,'service_id'=>$service[$i]))->get()->toArray();
             if(empty($exist)){
                 $temp_service = Temp_service::create([
                     'service_id' => $service[$i],

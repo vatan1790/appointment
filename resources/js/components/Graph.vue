@@ -181,13 +181,11 @@
               <a href="#"><img src="images/up-triangle.svg" alt="Previous"> Previous appointment</a>
             </div>
             <div class="booking-type text-center">
-              <p class="heading-20-white">01:00PM New Booking</p>
+              <p class="heading-20-white">New Booking</p>
             </div>
 
             <!--start all cases-->
-            <div class="booking-body ">
-              <form v-on:submit.prevent="save_temp_service">  
-       
+            <div class="booking-body"  :class="{ 'd-none': addNewClass }">
               <div class="form-group search-group">
                 <label class="input-label">Add Customer</label>
                 <input type="text" class="form-control" placeholder="Search by phone"  v-model="searchValue" @keyup="getData">
@@ -196,72 +194,97 @@
               </div>
               <div>
                 <ul id="myUL"  v-for="cust in customer" :key="cust.id">
-                  <li><a href="javascript:void(0);"> <label><input type="radio" :value="cust.id" v-model="checkedCustomer" /> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li>
+                  <li><a href="javascript:void(0);"> <label><input type="checkbox" /> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li>
                 </ul>
               </div>
-              
+              <div>
+                <div class="time-from-to">
+                  <div class="form-group">
+                    <label class="input-label text-center">From</label>
+                    <input type="time" class="form-control time-picker" name="from_time" v-model="from_time" placeholder="HH:MM">
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label text-center">To</label>
+                    <input type="time" class="form-control time-picker" name="to_time" v-model="to_time" placeholder="HH:MM">
+                  </div>
+                </div>
+              </div>
               <div class="mt-4">
-                <h4 class="heading-20-white">Add service</h4>
-                <div class="booking-body ">
-              <div class="categories-list d-flex align-items-center">
-                <div class="listing">
-                  <ul class="nav nav-tabs">
-                    <li  v-for="(cat,index) in category" :key="index"><a class="category-li" :class="{ active: isActive(index) }"  data-toggle="tab" :href="'#home'+cat.id">{{cat.name}}</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="tab-content" >
-              <div :id="'home'+cat.id" class="container tab-pane " :class="{ active: isActive(index) }" v-for="(cat,index) in category" :key="index"><br>
-                <div class="service-listing" v-for="catservice in cat.servicelist" :key="catservice.id" >
-                  <div class="service-box all package " style="display: block!important;" > 
-                    <div class="d-flex align-items-center">
-                      <figure>
-                        <img src="images/manicure.png" alt="Package">
-                        <input type="checkbox" name="check"  :id="'input-age-'+catservice.id" :value="catservice.id" v-model="checkedServices">
-                     
-                      </figure>
-                    
-                      <div class="text">
-                      
-                        <h4>{{catservice.name}}</h4>
-                        <!-- <span>2</span> -->
-                        <p>M1 - {{catservice.duration}}’</p>
-                      </div>
-                      <h6 class="ms-auto">{{catservice.price}} $</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>             
-              <!-- <div class="reverse-btns d-flex mt-5 position-relative">
-                <button type="submit" class="theme-btn yellow-btn mx-auto">Done</button>
-              </div> -->
-            </div>
-   
                 <div class="service-listing mt-4">
-                  <h4 class="heading-20-white">Service</h4>
-                  <div class="service-box mt-3">
+                  <h4 class="heading-20-white">Add Service</h4>
+                  <div class="service-box mt-3" style="display: block;" v-for="temps in tempservices" :key="temps.id">
                     <div class="d-flex align-items-center">
                       <figure>
                         <img src="images/manicure.png" alt="Package">
-                        <a href="#" class="close"><img src="images/cross-yellow.svg" height="12" alt="Remove"></a>
+                         <input type="checkbox" checked: true  :value="temps.id" v-model="services" >
+                         <input type="checkbox" :value=tech.id  :style="{ display: 'none' }" v-model="tecnicianid">
+                        <a href="#" @click="deleteItem(temps.id)" class="close"><img src="images/cross-yellow.svg" height="12" alt="Remove"></a>
                       </figure>
                       <div class="text">
-                        <h4>Package</h4>
-                        <p>M1 - 30’</p>
+                        <h4>{{temps.service.name}}</h4>
+                        <p>M1 - {{temps.service.duration}}’</p>
                       </div>
-                      <h6 class="ms-auto">30 $</h6>
+                      <h6 class="ms-auto">{{temps.service.price}} $</h6>
                     </div>
                   </div>
                 </div>
-                <!-- <a href="#" class="service-add-btn">+</a> -->
+                <a href="#" class="service-add-btn"  @click="updateClasses">+</a>
               </div>
               <div class="btns d-flex mt-4">
                 <button class="theme-btn yellow-btn">Add Tech</button>
                 <button type="submit" class="theme-btn white-btn">Complete</button>
               </div>
-              </form>
             </div>
+
+          
+            <div class="booking-body" :class="{ 'd-none': !addNewClass }">
+            <form v-on:submit.prevent="save_temp_service">  
+           
+              <div class="categories-list d-flex align-items-center">
+                <ul class="nav nav-tabs">
+                    <li  v-for="(cat,index) in category" :key="index"><a class="category-li" :class="{ active: isActive(index) }"  data-toggle="tab" :href="'#home'+cat.id">{{cat.name}}</a></li>
+                </ul>
+                <!-- <ul class="nav nav-tabs" id="myTab" role="tablist"  >
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent" type="button" role="tab" aria-controls="recent" aria-selected="true">Recent</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="manicure-tab" data-bs-toggle="tab" data-bs-target="#manicure" type="button" role="tab" aria-controls="manicure" aria-selected="false">Manicure</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pedicure-tab" data-bs-toggle="tab" data-bs-target="#pedicure" type="button" role="tab" aria-controls="pedicure" aria-selected="false">Pedicure</button>
+                  </li>
+                </ul> -->
+              </div>
+              <div class="tab-content" >
+              <div :id="'home'+cat.id" class="container tab-pane " :class="{ active: isActive(index) }" v-for="(cat,index) in category" :key="index"><br>
+                <div class="service-listing" v-for="catservice in cat.servicelist" :key="catservice.id" >
+                  <label :for="'input-age-'+catservice.id">
+                    <div class="service-box all package " style="display: block!important;" > 
+                      <div class="d-flex align-items-center">
+                        <figure><img src="images/manicure.png" alt="Package"></figure>
+                        <div class="text">
+                          <input type="checkbox" name="check"  :id="'input-age-'+catservice.id" :value="catservice.id" v-model="checkedServices">
+                          <h4>{{catservice.name}}</h4>
+                          <!-- <span>2</span> -->
+                          <p>M1 - {{catservice.duration}}’</p>
+                        </div>
+                        <h6 class="ms-auto">{{catservice.price}} $</h6>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+              
+              <div class="reverse-btns d-flex mt-5 position-relative">
+                <button type="submit" class="theme-btn yellow-btn mx-auto">Done</button>
+              </div>
+            </form>  
+           
+            </div>
+
 
             <div class="booking-body d-none">
               <div class="customer-name">
@@ -460,7 +483,7 @@
               </div>
             </div>
 
-            
+          
             <div class="booking-body">
               <div class="technician-listing">
                 <h4>Select technician avaiable</h4>
@@ -541,6 +564,7 @@
         </div>
       </div>    
   </div>
+  
 </template>
 
 <script>
@@ -548,20 +572,29 @@ export default {
       
       data(){
       return {
-        technician:[],
-        category:[],
+        technician:[], 
+        addNewClass: false, 
+        checkedServices:[],
+        tempservices:[],
+        activeIndex: 0,
+        tecnicianid:'',
+        services:[],
         searchValue:'',
         customer:'',
-        activeIndex: 0,
-        category_id:''
+        from_time:'',
+        to_time:'',
       }
     },
     created(){
-      
+      axios.get('/api/tempservice?user_id='+localStorage.getItem('usertoken'))
+        .then((resp) =>{
+          this.tempservices = resp.data.service
+        })
       axios.get('/api/category?user_id='+localStorage.getItem('usertoken'))
         .then((resp) =>{
           this.category = resp.data.category
-        }),
+        })
+
       axios.get('/api/technician?user_id='+localStorage.getItem('usertoken'))
       .then((resp) =>{
         this.technician = resp.data.technician
@@ -572,18 +605,54 @@ export default {
       isActive(index) {
         return index === this.activeIndex;
       },
-      getCategoryId(id){
-        this.category_id = id;
+      updateClasses() {
+      this.addNewClass = true;
       },
-      getData() {
+      deleteItem(itemId) {
+               // Make the API request to delete the item
+         axios
+          .get('/api/deletetemp?user_id='+localStorage.getItem('usertoken')+`&id=${itemId}`)
+          .then((resp) =>{
+            this.tempservices = resp.data.service
+          })
+          .catch(error => {
+            // Handle error
+            console.error('Error deleting item:', error);
+          });
+      },
+      getData() {      
         axios.get('/api/searchuser?user_id='+localStorage.getItem('usertoken')+'&number='+this.searchValue)
         .then((resp) =>{
           this.customer = resp.data.customer;
+        })
+      },
+      save_temp_service(e){
+        e.preventDefault();
+        let existingObj = this;
+        const config = {
+            headers: {
+                "Accept": "application/json",
+                'content-type': 'multipart/form-data',
+            }
+        }
+        let data = new FormData();
+        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('service_id',  this.checkedServices);
+        axios
+        .post('/api/tempservice', data, config)
+        .then((resp) =>{
+            this.checkedServices = [];
+            this.addNewClass = false;
+            this.tempservices = resp['data']['service'];
+        })
+        .catch(e => {
+          this.notifmsg_t = e.response.data
         })
       }
     }
 
 }
+
 </script>
 
 <style>
