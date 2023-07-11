@@ -175,6 +175,7 @@
       </section>
         <!--User Data-->
         <div v-for="tech in technician" :key="tech.id">
+          
         <div class="collapse data-collapse" :id="'userData'+tech.id" >
           <div class="user-data-main">
             <div class="pn-appointment text-center">
@@ -186,6 +187,8 @@
 
             <!--start all cases-->
             <div class="booking-body"  :class="{ 'd-none': addNewClass }">
+              <form @submit="submitForm">
+               
               <div class="form-group search-group">
                 <label class="input-label">Add Customer</label>
                 <input type="text" class="form-control" placeholder="Search by phone"  v-model="searchValue" @keyup="getData">
@@ -201,11 +204,12 @@
                 <div class="time-from-to">
                   <div class="form-group">
                     <label class="input-label text-center">From</label>
-                    <input type="time" class="form-control time-picker" name="from_time" v-model="from_time" placeholder="HH:MM">
+                    <input type="checkbox" :value=tech.id  :style="{ display: 'none' }" v-model="form.tecnicianid">
+                    <input type="time" class="form-control time-picker" name="from_time" v-model="form.from_time" placeholder="HH:MM">
                   </div>
                   <div class="form-group">
                     <label class="input-label text-center">To</label>
-                    <input type="time" class="form-control time-picker" name="to_time" v-model="to_time" placeholder="HH:MM">
+                    <input type="time" class="form-control time-picker" name="to_time" v-model="form.to_time" placeholder="HH:MM">
                   </div>
                 </div>
               </div>
@@ -217,7 +221,6 @@
                       <figure>
                         <img src="images/manicure.png" alt="Package">
                          <input type="checkbox" checked: true  :value="temps.id" v-model="services" >
-                         <input type="checkbox" :value=tech.id  :style="{ display: 'none' }" v-model="tecnicianid">
                         <a href="#" @click="deleteItem(temps.id)" class="close"><img src="images/cross-yellow.svg" height="12" alt="Remove"></a>
                       </figure>
                       <div class="text">
@@ -234,6 +237,7 @@
                 <button class="theme-btn yellow-btn">Add Tech</button>
                 <button type="submit" class="theme-btn white-btn">Complete</button>
               </div>
+            </form>
             </div>
 
           
@@ -581,8 +585,14 @@ export default {
         services:[],
         searchValue:'',
         customer:'',
-        from_time:'',
-        to_time:'',
+        form: {
+          from_time:'',
+          to_time:'',
+          customerid:'',
+          tecnicianid:'',
+          services:[],
+        
+        },
       }
     },
     created(){
@@ -644,6 +654,33 @@ export default {
             this.checkedServices = [];
             this.addNewClass = false;
             this.tempservices = resp['data']['service'];
+        })
+        .catch(e => {
+          this.notifmsg_t = e.response.data
+        })
+      },
+      submitForm(e){
+        e.preventDefault();
+        let existingObj = this;
+        const config = {
+            headers: {
+                "Accept": "application/json",
+                'content-type': 'multipart/form-data',
+            }
+        }
+        let data = new FormData();
+        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('technician_id',  this.from.tecnicianid);
+        data.append('customer_id',  this.from.customerid);
+        data.append('services',  this.from.services);
+        data.append('from_time',  this.from.from_time);
+        data.append('to_time',  this.from.to_time);
+        axios
+        .post('/api/appointment', data, config)
+        .then((resp) =>{
+            this.checkedServices = [];
+            this.addNewClass = false;
+            this.tempservices = resp['data']['appointment'];
         })
         .catch(e => {
           this.notifmsg_t = e.response.data

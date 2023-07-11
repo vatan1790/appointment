@@ -9,6 +9,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\AppointmentController; 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,6 +36,7 @@ Route::resource('service', ServiceController::class);
 Route::resource('schedule', ScheduleController::class);
 Route::resource('package', PackageController::class);
 Route::resource('technician', TechnicianController::class);
+Route::resource('appointment', AppointmentController::class);
 
 Route::post('tempservice',[ServiceController::class, 'tempservice']);
 Route::get('tempservice',[ServiceController::class, 'tempserviceList']);
