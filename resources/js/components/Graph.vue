@@ -317,6 +317,37 @@
                     <h6 class="ms-auto">30 $</h6>
                   </div>
                 </div>
+                <div class="service-box mt-3">
+                  <div class="d-flex align-items-center">
+                    <figure><img src="images/manicure.png" alt="Package"></figure>
+                    <div class="text">
+                      <h4>Package</h4>
+                      <p class="green-bar">M1 - 30’</p>
+                    </div>
+                    <h6 class="ms-auto">30 $</h6>
+                  </div>
+                </div>
+
+                <div class="service-box mt-3">
+                  <div class="d-flex align-items-center">
+                    <figure><img src="images/manicure.png" alt="Package"></figure>
+                    <div class="text">
+                      <h4>Package</h4>
+                      <p class="green-bar">M1 - 30’</p>
+                    </div>
+                    <h6 class="ms-auto">30 $</h6>
+                  </div>
+                </div>
+                <div class="service-box mt-3">
+                  <div class="d-flex align-items-center">
+                    <figure><img src="images/manicure.png" alt="Package"></figure>
+                    <div class="text">
+                      <h4>Package</h4>
+                      <p class="green-bar">M1 - 30’</p>
+                    </div>
+                    <h6 class="ms-auto">30 $</h6>
+                  </div>
+                </div>
               </div>
               <div class="reverse-btns d-flex mt-4">
                 <button class="theme-btn white-btn"><img src="images/cross-green.svg" alt="Decline"> Decline</button>
