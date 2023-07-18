@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Jul 18, 2023 at 04:10 PM
+=======
+-- Generation Time: Jul 18, 2023 at 12:10 PM
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -46,9 +50,13 @@ CREATE TABLE `appointments` (
 INSERT INTO `appointments` (`id`, `user_id`, `technician_id`, `services`, `from_time`, `to_time`, `created_at`, `updated_at`, `customer_id`) VALUES
 (1, 1, 1, '1,2', '12:00:00', '12:00:00', '2023-07-11 06:43:52', '2023-07-11 06:43:52', NULL),
 (2, 1, 2, '13', '01:00:00', '01:00:00', '2023-07-15 02:54:31', '2023-07-15 02:54:31', NULL),
+<<<<<<< HEAD
 (3, 1, 2, '13', '01:00:00', '01:00:00', '2023-07-15 04:48:29', '2023-07-15 04:48:29', NULL),
 (4, 1, 2, '30', '01:00:00', '01:00:00', '2023-07-18 08:35:47', '2023-07-18 08:35:47', 1),
 (5, 1, 2, '30', '01:00:00', '01:00:00', '2023-07-18 08:39:49', '2023-07-18 08:39:49', 7);
+=======
+(3, 1, 2, '13', '01:00:00', '01:00:00', '2023-07-15 04:48:29', '2023-07-15 04:48:29', NULL);
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 -- --------------------------------------------------------
 
@@ -72,10 +80,14 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `user_id`, `name`, `color`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Madisin', 'orange', 1, '2023-06-15 06:02:27', '2023-06-15 06:02:27'),
+<<<<<<< HEAD
 (2, 1, 'Newcategory', 'purple', 1, '2023-06-15 06:29:51', '2023-06-15 06:29:51'),
 (3, 1, 'new c', 'orange', 1, '2023-07-18 06:23:07', '2023-07-18 06:23:07'),
 (4, 1, 'tedt', 'darkblue', 1, '2023-07-18 06:29:01', '2023-07-18 06:29:01'),
 (5, 1, 'ede', 'purple', 1, '2023-07-18 06:29:38', '2023-07-18 06:29:38');
+=======
+(2, 1, 'Newcategory', 'purple', 1, '2023-06-15 06:29:51', '2023-06-15 06:29:51');
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 -- --------------------------------------------------------
 
@@ -101,8 +113,12 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id`, `user_id`, `fname`, `lname`, `phone`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Rakesh', 'Verma', '8989898989', 1, '2023-04-21 23:54:57', '2023-06-15 11:23:26'),
 (6, 1, 'Ravi', 'Kant', '5868585895', 1, '2023-06-15 06:00:51', '2023-06-15 06:00:51'),
+<<<<<<< HEAD
 (7, 1, 'Shyam', 'Sharma', '9696958585', 1, '2023-06-15 06:28:29', '2023-06-15 06:28:29'),
 (8, 1, 'test', 'de', '56565665', 1, '2023-07-18 06:35:17', '2023-07-18 06:35:17');
+=======
+(7, 1, 'Shyam', 'Sharma', '9696958585', 1, '2023-06-15 06:28:29', '2023-06-15 06:28:29');
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 -- --------------------------------------------------------
 
@@ -165,8 +181,12 @@ CREATE TABLE `packages` (
 
 INSERT INTO `packages` (`id`, `user_id`, `name`, `price`, `image`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'New Package', 4000.00, '/uploads/1686830556.jpg', 1, '2023-06-15 06:32:36', '2023-06-15 06:32:36'),
+<<<<<<< HEAD
 (2, 1, 'New Package', 4000.00, '/uploads/1686830557.jpg', 1, '2023-06-15 06:32:37', '2023-06-15 06:32:37'),
 (3, 1, 'adss', 100.00, '/uploads/1689682430.jpg', 1, '2023-07-18 06:43:51', '2023-07-18 06:43:51');
+=======
+(2, 1, 'New Package', 4000.00, '/uploads/1686830557.jpg', 1, '2023-06-15 06:32:37', '2023-06-15 06:32:37');
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 -- --------------------------------------------------------
 
@@ -246,9 +266,13 @@ CREATE TABLE `services` (
 
 INSERT INTO `services` (`id`, `user_id`, `category_id`, `name`, `image`, `duration`, `price`, `description`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'Package', '/uploads/1688473319.webp', 23, 45.00, 'sdsdd', 1, '2023-07-04 06:51:59', '2023-07-08 06:24:09'),
+<<<<<<< HEAD
 (2, 1, 2, 'Package 2', '/uploads/1688473395.webp', 30, 20.00, 'xzxxz', 1, '2023-07-04 06:53:15', '2023-07-08 06:24:13'),
 (3, 1, 1, 'Package', '/uploads/1689682687.jpg', 56, 30000.00, 'xccxcc', 1, '2023-07-18 06:48:07', '2023-07-18 06:48:07'),
 (4, 1, 1, 'Package2', '/uploads/1689682922.jpg', 30, 10.00, 'zxdsdsd', 1, '2023-07-18 06:52:02', '2023-07-18 06:52:02');
+=======
+(2, 1, 2, 'Package 2', '/uploads/1688473395.webp', 30, 20.00, 'xzxxz', 1, '2023-07-04 06:53:15', '2023-07-08 06:24:13');
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 -- --------------------------------------------------------
 
@@ -276,8 +300,12 @@ CREATE TABLE `technicians` (
 
 INSERT INTO `technicians` (`id`, `user_id`, `fname`, `lname`, `image`, `services`, `schedules`, `workingTime`, `status`, `created_at`, `updated_at`) VALUES
 (2, 1, 'test new', 'Doe2', '/uploads/1688029002.jpg', '3,4', '8', 'mon|3:00:00,mon|11:00:00,mon|12:00:00', 1, '2023-06-29 03:26:42', '2023-06-29 03:26:42'),
+<<<<<<< HEAD
 (3, 1, 'test new', 'dsds', '/uploads/1688029091.webp', '4,3', NULL, 'mon|11:00:00,mon|5:00:00,mon|6:00:00,mon|14:00:00', 1, '2023-06-29 03:28:11', '2023-06-29 03:28:11'),
 (4, 1, 'test new', 'Doe2', '/uploads/1689683430.jpg', NULL, NULL, NULL, 1, '2023-07-18 07:00:30', '2023-07-18 07:00:30');
+=======
+(3, 1, 'test new', 'dsds', '/uploads/1688029091.webp', '4,3', NULL, 'mon|11:00:00,mon|5:00:00,mon|6:00:00,mon|14:00:00', 1, '2023-06-29 03:28:11', '2023-06-29 03:28:11');
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 -- --------------------------------------------------------
 
@@ -298,7 +326,12 @@ CREATE TABLE `temp_services` (
 --
 
 INSERT INTO `temp_services` (`id`, `user_id`, `service_id`, `created_at`, `updated_at`) VALUES
+<<<<<<< HEAD
 (30, '1', '1', '2023-07-18 07:12:25', '2023-07-18 07:12:25');
+=======
+(13, '1', '1', '2023-07-15 02:23:06', '2023-07-15 02:23:06'),
+(14, '1', '2', '2023-07-15 02:34:21', '2023-07-15 02:34:21');
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 -- --------------------------------------------------------
 
@@ -418,19 +451,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
+<<<<<<< HEAD
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+=======
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -448,7 +489,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -466,19 +507,31 @@ ALTER TABLE `schedules`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
+<<<<<<< HEAD
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+=======
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 --
 -- AUTO_INCREMENT for table `technicians`
 --
 ALTER TABLE `technicians`
+<<<<<<< HEAD
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+=======
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 --
 -- AUTO_INCREMENT for table `temp_services`
 --
 ALTER TABLE `temp_services`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+>>>>>>> 1c45237dd3da861d77465ac1a5a3de89ca788d7b
 
 --
 -- AUTO_INCREMENT for table `users`
