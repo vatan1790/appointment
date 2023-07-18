@@ -57,7 +57,7 @@ class CategoryController extends Controller
             'color' => $request->color,
             'user_id'=>$request->user_id
         ]);
-
+        $category = Category::with('servicelist')->where('user_id',$request->user_id)->get();
         if($category){
             return response()->json(compact('category'));
          }else{

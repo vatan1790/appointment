@@ -45,6 +45,7 @@ class PackageController extends Controller
             'user_id' => 'required',
             'package_name' => 'required|string|max:255',
             'price' => 'required|string|max:255',
+            'image' => 'required',
         ],$message);
 
         if($validator->fails()){

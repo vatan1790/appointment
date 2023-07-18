@@ -11,6 +11,11 @@
 
         <!--start all cases-->
         <div class="booking-body"  :class="{ 'd-none': addNewClass }">
+          <p class="text-danger" v-for="(errorArray, idx) in notifmsg_t" :key="idx">
+              <span v-for="(allErrors, idx) in errorArray" :key="idx">
+                  <span class="text-danger">{{ allErrors}} </span>
+              </span>
+            </p>
           <form @submit="submitForm">
             
           <div class="form-group search-group">
@@ -445,6 +450,7 @@ export default {
         activeIndex: 0,
         tecnicianid:'',
         services:[],
+        notifmsg_t:'',
         searchValue:'',
         customer:'',
         from: {
@@ -542,7 +548,32 @@ export default {
         .then((resp) =>{
             this.checkedServices = [];
             this.addNewClass = false;
-            this.tempservices = resp['data']['appointment'];
+              if(resp['data']['appointment'])
+              {
+              
+                this.from.customerid = '';
+                this.from.services = '';
+                this.from.from_time = '';
+                this.from.to_time = '';
+                this.technician = resp['data']['technician'];
+                Swal.fire({
+                      title: 'Good job!',
+                      text:   "Appointment Create Successfully!",
+                      icon: 'success',
+                    
+                  });
+              }
+              else
+              {
+
+              Swal.fire({
+                  title: 'OPPS',
+                  text:   "error",
+                  icon: 'warning',
+                
+              });
+                
+              }
         })
         .catch(e => {
           this.notifmsg_t = e.response.data

@@ -49,7 +49,7 @@ class AppointmentController extends Controller
             'services' => 'required',
             'from_time' => 'required',
             'to_time'=>'required',
-            'user_id' =>'required',
+            'customer_id' =>'required',
         ],$message);
 
         if($validator->fails()){
@@ -63,6 +63,7 @@ class AppointmentController extends Controller
             'from_time' => $request->from_time,
             'services' => $request->services,
             'technician_id' => $request->technician_id,
+            'customer_id'=>$request->customer_id,
             'user_id'=>$request->user_id
         ]);
         if($appointment){

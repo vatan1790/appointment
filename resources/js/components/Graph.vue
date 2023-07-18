@@ -203,12 +203,13 @@ export default {
         services:[],
         searchValue:'',
         customer:'',
+        isChecked:[],
         form: {
           from_time:'',
           to_time:'',
           customerid:'',
           tecnicianid:'',
-          services:[],
+       
         
         },
       }
@@ -290,7 +291,7 @@ export default {
         data.append('user_id',localStorage.getItem('usertoken'));
         data.append('technician_id',  this.from.tecnicianid);
         data.append('customer_id',  this.from.customerid);
-        data.append('services',  this.from.services);
+        data.append('services',  this.isChecked);
         data.append('from_time',  this.from.from_time);
         data.append('to_time',  this.from.to_time);
         axios

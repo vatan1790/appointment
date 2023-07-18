@@ -48,7 +48,8 @@ class ServiceController extends Controller
             'price' => 'required',
             'description' => 'required',
             'user_id' =>'required',
-            'category_id'=>'required'
+            'category_id'=>'required',
+            'image'=>'required'
         ],$message);
 
         if($validator->fails()){
@@ -73,6 +74,7 @@ class ServiceController extends Controller
             'category_id' => $request->category_id,
             'user_id'=>$request->user_id
         ]);
+        $service = Service::with('categorylist')->where('user_id',$request->user_id)->get();  
         if($service){
             return response()->json(compact('service'));
         }else{
@@ -94,7 +96,7 @@ class ServiceController extends Controller
         }
         $service = explode(',',$request->service_id);
         for ($i=0; $i <count($service) ; $i++) { 
-            $exist = Temp_service::with('service_id')->where(array('user_id'=>$request->user_id,'service_id'=>$service[$i]))->get()->toArray();
+            $exist = Temp_service::where(array('user_id'=>$request->user_id,'service_id'=>$service[$i]))->get()->toArray();
             if(empty($exist)){
                 $temp_service = Temp_service::create([
                     'service_id' => $service[$i],

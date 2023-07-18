@@ -40,7 +40,8 @@ class TechnicianController extends Controller
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
             'image' => 'required',
-            'user_id' =>'required'
+            'user_id' =>'required',
+            'image' =>'required'
         ],$message);
 
         if($validator->fails()){
@@ -65,6 +66,8 @@ class TechnicianController extends Controller
             'workingTime'=>$request->workingTime,
             'user_id'=>$request->user_id
         ]);
+        
+        $technician = Technician::where('user_id',$request->user_id)->get();
         if($technician){
            return response()->json(compact('technician'));
         }else{

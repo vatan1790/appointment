@@ -435,11 +435,11 @@
             <h3><img src="images/service.svg" alt="New service"> New service</h3>
           </div>
           <div class="add-service-form">
-            <span class="text-danger" v-for="(errorArray, idx) in notifmsg_s" :key="idx">
+            <p class="text-danger" v-for="(errorArray, idx) in notifmsg_s" :key="idx">
               <span v-for="(allErrors, idx) in errorArray" :key="idx">
                   <span class="text-danger">{{ allErrors}} </span>
               </span>
-            </span>
+            </p>
             <br>
             <form @submit="formSubmit" enctype="multipart/form-data" >
               <div class="service-img text-center">
@@ -493,6 +493,7 @@
             <h3><img src="images/service.svg" alt="New category"> New category</h3>
           </div>
           <div class="add-new-category">
+           
             <form v-on:submit.prevent="save_category">
               <div class="form-group">
                 <h3>Category name</h3>
@@ -501,6 +502,11 @@
                 <input type="text" placeholder="Type" name="name" class="form-control" v-model="form.name">
               </div>
               <div class="form-group">
+                <p class="text-danger" v-for="(errorArray, idx) in notifmsg_cat" :key="idx">
+                    <span v-for="(allErrors, idx) in errorArray" :key="idx">
+                        <span class="text-danger">{{ allErrors}} </span>
+                    </span>
+                </p>
                 <h3>Choose color</h3>
                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
                 </p>
@@ -561,11 +567,11 @@
             <h3><img src="images/service.svg" alt="New Package">New Package</h3>
           </div>
           <div class="add-service-form">
-            <span class="text-danger" v-for="(errorArray, idx) in notifmsg_p" :key="idx">
+            <p class="text-danger" v-for="(errorArray, idx) in notifmsg_p" :key="idx">
               <span v-for="(allErrors, idx) in errorArray" :key="idx">
                   <span class="text-danger">{{ allErrors}} </span>
               </span>
-            </span>
+            </p>
             <br>
             <form  @submit="save_package"  enctype="multipart/form-data">
               <div class="service-img text-center">
@@ -657,11 +663,11 @@
           <div class="heading">
             <h3><img  src="images/technician.svg" alt="Create Technician">Create Technician</h3>
           </div>
-          <span class="text-danger" v-for="(errorArray, idx) in notifmsg_t" :key="idx">
+          <p class="text-danger" v-for="(errorArray, idx) in notifmsg_t" :key="idx">
               <span v-for="(allErrors, idx) in errorArray" :key="idx">
                   <span class="text-danger">{{ allErrors}} </span>
               </span>
-            </span>
+            </p>
             <br>
           <form  @submit="save_technician"  enctype="multipart/form-data">
             <div class="create-technician">
@@ -1344,11 +1350,11 @@
           <div class="heading">
             <h3><img src="images/customer.svg" alt="New Customer">New Customer</h3>
           </div>
-          <span class="text-danger" v-for="(errorArray, idx) in notifmsg" :key="idx">
+          <p class="text-danger" v-for="(errorArray, idx) in notifmsg" :key="idx">
               <span v-for="(allErrors, idx) in errorArray" :key="idx">
                   <span class="text-danger">{{ allErrors}} </span>
               </span>
-          </span>
+            </p>
           <br>
           <form v-on:submit.prevent="save_customer">
             <div class="new-customer-main d-flex flex-column">
@@ -1507,6 +1513,7 @@
    data(){
    return {
      moment:'',
+     notifmsg_cat: '',
      notifmsg: '',
      notifmsg_p: '',
      notifmsg_s: '',
@@ -1523,6 +1530,8 @@
      schedules:[],
      activeIndex: 0,
      filet:'',
+     filep:'',
+     file:'',
      imageFile:'images/dummy-img.png',
      imageFile2:'images/dummy-img.png',
      imageFile3:'images/dummy-technician.png',
@@ -1662,15 +1671,9 @@
             this.notifmsg_p =[];
             if(resp['data']['service'])
             {
-            
-                this.name = ''
-                this.color = ''
-                Swal.fire({
-                    title: 'Good job!',
-                    text:   "Service Create Successfully!",
-                    icon: 'success',
-                  
-                });
+              this.services = resp['data']['service']
+               $('#addServiceModal').modal('hide');
+               $('#serviceModal').modal('show');
             }
             else
             {
@@ -1768,7 +1771,7 @@
             this.form.services = '';
             this.form.schedules = '';
             this.form.workingTime = '';
-            this.file = '';
+            this.filet = '';
             this.imageFile3 ='images/dummy-technician.png';
             this.notifmsg_t =[];
             if(resp['data']['technician'])
@@ -1777,7 +1780,8 @@
               this.form.fname = '';
               this.form.lname = '';
               this.form.status = '';
-              this.file = '';
+              this.filet = '';
+              this.technician = resp['data']['technician'];
               Swal.fire({
                     title: 'Good job!',
                     text:   "Service Create Successfully!",
@@ -1880,12 +1884,9 @@
           
               this.name = ''
               this.color = ''
-              Swal.fire({
-                  title: 'Good job!',
-                  text:   "Category Create Successfully!",
-                  icon: 'success',
-                
-              });
+              this.category = resp['data']['category']
+              $('#addCategoryModal').modal('hide');
+              $('#serviceModal').modal('show');
           }
           else
           {
@@ -1901,7 +1902,7 @@
           
       })
       .catch(e => {
-        this.notifmsg = e.response.data
+        this.notifmsg_cat = e.response.data
       })
     },
     
