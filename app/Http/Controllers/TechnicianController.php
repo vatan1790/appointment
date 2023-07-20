@@ -19,7 +19,8 @@ class TechnicianController extends Controller
         
             return response()->json( $message , 400);
         }
-        $technician = Technician::where('user_id',$request->user_id)->get();  
+        $technician = Technician::with('appointments')->with('slots')->where('user_id',$request->user_id)->get();  
+      
         return response()->json(compact('technician'));  
          
     }

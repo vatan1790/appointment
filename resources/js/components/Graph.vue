@@ -156,15 +156,21 @@
             </button>
             <span class="numbers green-bg">115’ <span>minutes available</span></span>
             <div class="bars">
-              <div class="bar grey-bar" data-bs-toggle="tooltip" data-bs-html="true"
+              <Slot :slot="slot" v-for="slot in tech.slots" :key="slot.id"></Slot>
+              <!-- <div class="bar" data-bs-toggle="tooltip" data-bs-html="true"  v-for="(slot,index) in tech.slots" :key="index"
+                :data-bs-title=slot.from_time data-bs-placement="left" style="height: 3.10px;margin-top: 0;">
+              </div> -->
+
+              
+              <!-- <div class="bar grey-bar" data-bs-toggle="tooltip" data-bs-html="true"
                 data-bs-title="8:00AM - 8:45AM <br> 45 Min" data-bs-placement="left" style="height: 135px;margin-top: 0;">
-              </div>
-              <div class="bar orange-bar" data-bs-toggle="tooltip" data-bs-html="true"
+              </div> -->
+              <!-- <div class="bar orange-bar" data-bs-toggle="tooltip" data-bs-html="true"
                 data-bs-title="8:50AM - 9:30AM <br> 50 Min" data-bs-placement="left"
-                style="height: 120px;margin-top: 15px;"><img src="images/location.svg" alt="Location"></div>
-              <div class="bar green-bar" data-bs-toggle="tooltip" data-bs-html="true"
+                style="height: 120px;margin-top: 15px;"><img src="images/location.svg" alt="Location"></div> -->
+              <!-- <div class="bar green-bar" data-bs-toggle="tooltip" data-bs-html="true"
                 data-bs-title="9:30AM - 10:00AM <br> 30 Min" data-bs-placement="left" style="height: 90px;margin-top: 0;">
-              </div>
+              </div> -->
             </div>
           </div>
   
@@ -188,9 +194,11 @@ import Swal from 'sweetalert2'
 import router from '../router'
 import moment from "moment"
 import Appointment from "./Appointment.vue"
+import Slot from "./Slot.vue"
 export default {
       components: {
-        Appointment
+        Appointment,
+        Slot
       },
       data(){
       return {
@@ -204,6 +212,7 @@ export default {
         searchValue:'',
         customer:'',
         isChecked:[],
+        notifmsg_t:'',
         form: {
           from_time:'',
           to_time:'',

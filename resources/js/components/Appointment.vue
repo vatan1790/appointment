@@ -48,7 +48,7 @@
                 <div class="d-flex align-items-center">
                   <figure>
                     <img src="images/manicure.png" alt="Package">
-                      <input type="checkbox" checked: true  :value="temps.id" v-model="from.services" >
+                      <input type="checkbox" checked: true  :value="temps.service_id" v-model="from.services" >
                     <a href="#" @click="deleteItem(temps.id)" class="close"><img src="images/cross-yellow.svg" height="12" alt="Remove"></a>
                   </figure>
                   <div class="text">
@@ -379,49 +379,8 @@
         <div class="pn-appointment text-center">
           <a href="#"><img src="images/down-triangle.svg" alt="Next"> Next appointment</a>
         </div>
-        <div class="mt-2 upcoming-appointment pn-appointment-list">
-          <div class="box mt-2 p-0">
-            <div class="service-box">
-              <div class="d-flex align-items-center">
-                <figure class="user-img"><img src="images/user1.png" alt="Lyla"></figure>
-                <div class="text">
-                  <h4>Julia Pham</h4>
-                  <h5 class="timing">02:15PM</h5>
-                </div>
-                <span class="ms-auto c-label green-label">Serving</span>
-              </div>
-            </div>
-            <div class="service-box border-bottom">
-              <div class="d-flex align-items-center">
-                <figure><img src="images/manicure.png" alt="Package"></figure>
-                <div class="text">
-                  <h4>Package</h4>
-                  <p>M1 - 30’</p>
-                </div>
-                <h6 class="ms-auto">30 $</h6>
-              </div>
-            </div>
-            <div class="service-box">
-              <div class="d-flex align-items-center">
-                <figure class="user-img"><img src="images/user1.png" alt="Lyla"></figure>
-                <div class="text">
-                  <h4>Julia Pham</h4>
-                  <h5 class="timing">02:15PM</h5>
-                </div>
-                <span class="ms-auto c-label yellow-label">Checked-in</span>
-              </div>
-            </div>
-            <div class="service-box border-bottom">
-              <div class="d-flex align-items-center">
-                <figure><img src="images/manicure.png" alt="Package"></figure>
-                <div class="text">
-                  <h4>Package</h4>
-                  <p class="green-bar">M1 - 30’</p>
-                </div>
-                <h6 class="ms-auto">30 $</h6>
-              </div>
-            </div>
-          </div>
+        <div class="mt-2 upcoming-appointment pn-appointment-list" v-for="(appointment,index) in data.appointments" :key="index">
+         <Appointmentlist :appointment="appointment"></Appointmentlist>
         </div>
       </div>
     </div>  
@@ -434,7 +393,11 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import router from '../router'
 import moment from "moment"
+import Appointmentlist from './Appointmentlist.vue'
 export default {
+      components: {
+        Appointmentlist
+      },
       props: {
         data: {
           type: Object,
