@@ -4,102 +4,8 @@
     <section>
       <div class="calender-listing">
         <ul class="owl-carousel calender-carousel">
-          <li class="item">
-            <button class="calendar-btn active">
-              <h5>Today, Saturday Sep 22</h5>
-              <p>32 Appoinment</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>SUN 23</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>MON 24</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>TUE 25</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>WED 26</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>THU 27</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>FRI 28</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>SAT 29</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>SUN 30</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn">
-              <h5>MON 31</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn next-month">
-              <h5>NOV 1</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn next-month">
-              <h5>NOV 2</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn next-month">
-              <h5>NOV 3</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn next-month">
-              <h5>NOV 4</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn next-month">
-              <h5>NOV 5</h5>
-              <p>13</p>
-            </button>
-          </li>
-          <li class="item">
-            <button class="calendar-btn next-month">
-              <h5>NOV 6</h5>
-              <p>13</p>
-            </button>
-          </li>
+          <Datelist></Datelist>
+         
         </ul>
       </div>
       <div class="container">
@@ -195,10 +101,12 @@ import router from '../router'
 import moment from "moment"
 import Appointment from "./Appointment.vue"
 import Slot from "./Slot.vue"
+import Datelist from "./Datelist.vue"
 export default {
       components: {
         Appointment,
-        Slot
+        Slot,
+        Datelist
       },
       data(){
       return {
@@ -212,6 +120,7 @@ export default {
         searchValue:'',
         customer:'',
         isChecked:[],
+        days:[],
         notifmsg_t:'',
         form: {
           from_time:'',
@@ -224,16 +133,23 @@ export default {
       }
     },
     created(){
-      axios.get('/api/tempservice?user_id='+localStorage.getItem('usertoken'))
+      
+      const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+      axios.get('/api/appointmentbyday?user_id='+parsedData.value)
+        .then((resp) =>{
+          this.days = resp.data.days
+      })
+
+      axios.get('/api/tempservice?user_id='+parsedData.value)
         .then((resp) =>{
           this.tempservices = resp.data.service
         })
-      axios.get('/api/category?user_id='+localStorage.getItem('usertoken'))
+      axios.get('/api/category?user_id='+parsedData.value)
         .then((resp) =>{
           this.category = resp.data.category
         })
 
-      axios.get('/api/technician?user_id='+localStorage.getItem('usertoken'))
+      axios.get('/api/technician?user_id='+parsedData.value)
       .then((resp) =>{
         this.technician = resp.data.technician
         
@@ -248,8 +164,10 @@ export default {
       },
       deleteItem(itemId) {
                // Make the API request to delete the item
+               
+         const parsedData = JSON.parse(localStorage.getItem('usertoken'));
          axios
-          .get('/api/deletetemp?user_id='+localStorage.getItem('usertoken')+`&id=${itemId}`)
+          .get('/api/deletetemp?user_id='+parsedData.value+`&id=${itemId}`)
           .then((resp) =>{
             this.tempservices = resp.data.service
           })
@@ -259,7 +177,9 @@ export default {
           });
       },
       getData() {      
-        axios.get('/api/searchuser?user_id='+localStorage.getItem('usertoken')+'&number='+this.searchValue)
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+        axios.get('/api/searchuser?user_id='+parsedData.value+'&number='+this.searchValue)
         .then((resp) =>{
           this.customer = resp.data.customer;
         })
@@ -273,8 +193,10 @@ export default {
                 'content-type': 'multipart/form-data',
             }
         }
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
         let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('service_id',  this.checkedServices);
         axios
         .post('/api/tempservice', data, config)
@@ -296,8 +218,9 @@ export default {
                 'content-type': 'multipart/form-data',
             }
         }
-        let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        let data = new FormData();        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('technician_id',  this.from.tecnicianid);
         data.append('customer_id',  this.from.customerid);
         data.append('services',  this.isChecked);

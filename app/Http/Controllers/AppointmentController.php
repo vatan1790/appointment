@@ -33,6 +33,28 @@ class AppointmentController extends Controller
          
     }
 
+    public function appointmentbyday(Request $request){
+        
+        $message = array();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ],$message);
+
+        if($validator->fails()){
+            $message = $validator->messages()->all();
+        
+            return response()->json( $message , 400);
+        }
+        for ($i=0; $i <17; $i++) {
+            
+            $date = date('Y-m-d',strtotime('+ '.$i.' days'));
+            $appointment = Appointment::where('user_id',$request->user_id)->where('created_at','>=',date('Y-m-d 00:00:00',strtotime($date)))->where('created_at','<=',date('Y-m-d 23:59:00',strtotime($date)))->count();  
+            $days[] = array('date'=>$date,'appointment'=>$appointment);
+            
+        } 
+        return response()->json(compact('days'));  
+    }
+
 
     public function create()
     {

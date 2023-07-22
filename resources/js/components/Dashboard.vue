@@ -1557,40 +1557,40 @@
    }
  },
  created(){
-  
-        axios.get('/api/category?user_id='+localStorage.getItem('usertoken'))
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+        axios.get('/api/category?user_id='+parsedData.value)
         .then((resp) =>{
           this.category = resp.data.category
         })
 
 
-        axios.get('/api/service?user_id='+localStorage.getItem('usertoken'))
+        axios.get('/api/service?user_id='+parsedData.value)
         .then((resp) =>{
           this.services = resp.data.service          
         })
 
-        axios.get('/api/package?user_id='+localStorage.getItem('usertoken'))
+        axios.get('/api/package?user_id='+parsedData.value)
         .then((resp) =>{
           this.packages = resp.data.package
         })
 
-        axios.get('/api/technician?user_id='+localStorage.getItem('usertoken'))
+        axios.get('/api/technician?user_id='+parsedData.value)
         .then((resp) =>{
           this.technician = resp.data.technician
           
         })
 
-        axios.get('/api/schedule?user_id='+localStorage.getItem('usertoken'))
+        axios.get('/api/schedule?user_id='+parsedData.value)
         .then((resp) =>{
           this.schedules = resp.data.schedule
         })
 
-        axios.get('/api/tempservice?user_id='+localStorage.getItem('usertoken'))
+        axios.get('/api/tempservice?user_id='+parsedData.value)
         .then((resp) =>{
           this.tempservices = resp.data.service
         })
         
-        axios.get('/api/customer?user_id='+localStorage.getItem('usertoken'))
+        axios.get('/api/customer?user_id='+parsedData.value)
         .then((resp) =>{
           this.customers = resp.data.customer    
         })
@@ -1605,8 +1605,10 @@
       },
       deleteItem(itemId) {
                // Make the API request to delete the item
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+               
          axios
-          .get('/api/deletetemp?user_id='+localStorage.getItem('usertoken')+`&id=${itemId}`)
+          .get('/api/deletetemp?user_id='+parsedData.value+`&id=${itemId}`)
           .then((resp) =>{
             this.tempservices = resp.data.service
           })
@@ -1617,8 +1619,10 @@
       },
       deleteSchedule(itemId) {
                // Make the API request to delete the item
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+      
          axios
-          .get('/api/deleteSchedule?user_id='+localStorage.getItem('usertoken')+`&id=${itemId}`)
+          .get('/api/deleteSchedule?user_id='+parsedData.value+`&id=${itemId}`)
           .then((resp) =>{
             this.schedules = resp.data.schedule
           })
@@ -1648,8 +1652,10 @@
                 'content-type': 'multipart/form-data',
             }
         }
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+      
         let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('image', this.file);
         data.append('service_name',  this.form.service_name);
         data.append('duration',  this.form.duration);
@@ -1701,8 +1707,10 @@
                 'content-type': 'multipart/form-data',
             }
         }
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
         let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('service_id',  this.checkedServices);
         axios
         .post('/api/tempservice', data, config)
@@ -1726,8 +1734,10 @@
                 'content-type': 'multipart/form-data',
             }
         }
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
         let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('from_time',  this.form.from_time);
         data.append('to_time',  this.form.to_time);
         axios
@@ -1753,8 +1763,10 @@
                 'content-type': 'multipart/form-data',
             }
         }
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
         let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('image', this.filet);
         data.append('fname',  this.form.fname);
         data.append('lname',  this.form.lname);
@@ -1817,7 +1829,8 @@
       }
       let data = new FormData();
        
-      data.append('user_id',localStorage.getItem('usertoken'));
+      const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+      data.append('user_id',parsedData.value);
       data.append('image', this.filep);
       data.append('package_name', this.form.package_name);
       data.append('price',  this.form.price);
@@ -1862,12 +1875,13 @@
     //category
      save_category(){
       
+      const parsedData = JSON.parse(localStorage.getItem('usertoken'));
       axios
       .post('/api/category',
         {
           name: this.form.name,
           color: this.form.color,
-          user_id: localStorage.getItem('usertoken')
+          user_id: parsedData.value
         },
         {
             headers: {
@@ -1909,13 +1923,14 @@
     //customer
      save_customer(){
      
+      const parsedData = JSON.parse(localStorage.getItem('usertoken'));
        axios
        .post('/api/customer',
         {
           fname: this.form.fname,
           lname: this.form.lname,
           phone: this.form.phone,
-          user_id: localStorage.getItem('usertoken')
+          user_id:parsedData.value
         },
         {
             headers: {

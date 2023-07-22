@@ -427,16 +427,18 @@ export default {
       }
     },
     created(){
-      axios.get('/api/tempservice?user_id='+localStorage.getItem('usertoken'))
+      
+      const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+      axios.get('/api/tempservice?user_id='+parsedData.value)
         .then((resp) =>{
           this.tempservices = resp.data.service
         })
-      axios.get('/api/category?user_id='+localStorage.getItem('usertoken'))
+      axios.get('/api/category?user_id='+parsedData.value)
         .then((resp) =>{
           this.category = resp.data.category
         })
 
-      axios.get('/api/technician?user_id='+localStorage.getItem('usertoken'))
+      axios.get('/api/technician?user_id='+parsedData.value)
       .then((resp) =>{
         this.technician = resp.data.technician
         
@@ -451,8 +453,10 @@ export default {
       },
       deleteItem(itemId) {
                // Make the API request to delete the item
+               
+         const parsedData = JSON.parse(localStorage.getItem('usertoken'));
          axios
-          .get('/api/deletetemp?user_id='+localStorage.getItem('usertoken')+`&id=${itemId}`)
+          .get('/api/deletetemp?user_id='+parsedData.value+`&id=${itemId}`)
           .then((resp) =>{
             this.tempservices = resp.data.service
           })
@@ -462,7 +466,9 @@ export default {
           });
       },
       getData() {      
-        axios.get('/api/searchuser?user_id='+localStorage.getItem('usertoken')+'&number='+this.searchValue)
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+        axios.get('/api/searchuser?user_id='+parsedData.value+'&number='+this.searchValue)
         .then((resp) =>{
           this.customer = resp.data.customer;
         })
@@ -477,7 +483,9 @@ export default {
             }
         }
         let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('service_id',  this.checkedServices);
         axios
         .post('/api/tempservice', data, config)
@@ -500,7 +508,9 @@ export default {
             }
         }
         let data = new FormData();
-        data.append('user_id',localStorage.getItem('usertoken'));
+        
+        const parsedData = JSON.parse(localStorage.getItem('usertoken'));
+        data.append('user_id',parsedData.value);
         data.append('technician_id',  this.data.id);
         data.append('customer_id',  this.from.customerid);
         data.append('services',  this.from.services);

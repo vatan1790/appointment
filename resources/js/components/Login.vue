@@ -61,8 +61,11 @@ methods:{
        this.form.password = '';
        if(resp['data']['user'])
        {
-       
-            localStorage.setItem('usertoken',resp['data']['user'])
+            const data = {
+              value: resp['data']['user'],
+              expiration: new Date().getTime() + 3600 * 1000, // 1 hour expiration time (adjust as needed)
+            }
+            localStorage.setItem('usertoken',JSON.stringify(data))
             this.email = ''
             this.password = ''
             router.push({name: 'dashboard'})
