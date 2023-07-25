@@ -4,7 +4,13 @@
     <section>
       <div class="calender-listing">
         <ul class="owl-carousel calender-carousel">
-          <Datelist></Datelist>
+          <li class="item">
+              <button class="calendar-btn active">
+                  <h5>Today,</h5>
+                  <p>32 Appoinment</p>
+              </button>
+          </li>
+          <Datelist ></Datelist>
          
         </ul>
       </div>
@@ -108,6 +114,7 @@ export default {
         Slot,
         Datelist
       },
+   
       data(){
       return {
         technician:[], 

@@ -37,6 +37,7 @@ Route::resource('schedule', ScheduleController::class);
 Route::resource('package', PackageController::class);
 Route::resource('technician', TechnicianController::class);
 Route::resource('appointment', AppointmentController::class);
+Route::get('appointmentbyday',[AppointmentController::class, 'appointmentbyday']);
 
 Route::post('tempservice',[ServiceController::class, 'tempservice']);
 Route::get('tempservice',[ServiceController::class, 'tempserviceList']);

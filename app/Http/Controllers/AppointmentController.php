@@ -45,7 +45,7 @@ class AppointmentController extends Controller
         
             return response()->json( $message , 400);
         }
-        for ($i=0; $i <17; $i++) {
+        for ($i=0; $i <1; $i++) {
             
             $date = date('Y-m-d',strtotime('+ '.$i.' days'));
             $appointment = Appointment::where('user_id',$request->user_id)->where('created_at','>=',date('Y-m-d 00:00:00',strtotime($date)))->where('created_at','<=',date('Y-m-d 23:59:00',strtotime($date)))->count();  
