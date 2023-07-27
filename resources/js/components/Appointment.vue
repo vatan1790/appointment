@@ -26,7 +26,7 @@
           </div>
           <div>
             <ul id="myUL"  v-for="cust in customer" :key="cust.id">
-              <li><a href="javascript:void(0);"> <label><input type="checkbox" :value=cust.id v-model="from.customerid"/> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li>
+              <!-- <li><a href="javascript:void(0);"> <label><input type="checkbox" :value=cust.id v-model="from.customerid"/> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li> -->
             </ul>
           </div>
           <div>
@@ -48,7 +48,7 @@
                 <div class="d-flex align-items-center">
                   <figure>
                     <img src="images/manicure.png" alt="Package">
-                      <input type="checkbox" checked: true  :value="temps.service_id" v-model="from.services" >
+                      <!-- <input type="checkbox" checked: true  :value="temps.service_id" v-model="from.services" > -->
                     <a href="#" @click="deleteItem(temps.id)" class="close"><img src="images/cross-yellow.svg" height="12" alt="Remove"></a>
                   </figure>
                   <div class="text">
@@ -96,7 +96,7 @@
                   <div class="d-flex align-items-center">
                     <figure><img src="images/manicure.png" alt="Package"></figure>
                     <div class="text">
-                      <input type="checkbox" name="check"  :id="'input-age-'+catservice.id" :value="catservice.id" v-model="checkedServices">
+                      <!-- <input type="checkbox" name="check"  :id="'input-age-'+catservice.id" :value="catservice.id" v-model="checkedServices"> -->
                       <h4>{{catservice.name}}</h4>
                       <!-- <span>2</span> -->
                       <p>M1 - {{catservice.duration}}’</p>
@@ -351,19 +351,19 @@
           <div class="technician-listing">
             <h4>Select technician avaiable</h4>
             <label class="technician-check">
-              <input type="checkbox" class="d-none">
+              <!-- <input type="checkbox" class="d-none"> -->
               <figure><img src="images/user1.png" alt="Lyla"></figure>
               <p>Lyla Pham</p>
               <span class="ms-auto">115’</span>
             </label>
             <label class="technician-check">
-              <input type="checkbox" class="d-none">
+              <!-- <input type="checkbox" class="d-none"> -->
               <figure><img src="images/user1.png" alt="Lyla"></figure>
               <p>Lyla Pham</p>
               <span class="ms-auto">115’</span>
             </label>
             <label class="technician-check">
-              <input type="checkbox" class="d-none">
+              <!-- <input type="checkbox" class="d-none"> -->
               <figure><img src="images/user1.png" alt="Lyla"></figure>
               <p>Lyla Pham</p>
               <span class="ms-auto">115’</span>
@@ -392,7 +392,7 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import router from '../router'
-import moment from "moment"
+import moment from "moment" 
 import Appointmentlist from './Appointmentlist.vue'
 export default {
       components: {

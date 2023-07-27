@@ -216,7 +216,11 @@ section {
 }
 
 .header {
-    padding: 20px 50px;
+    padding: 20px 30px;
+}
+
+.navbar {
+    padding: 0px !important;
 }
 
 .header .navbar-expand-lg .navbar-nav .nav-item+.nav-item {
@@ -248,10 +252,10 @@ section {
 
 .calender-listing {
     overflow-x: auto;
-    padding: 15px 0;
+    /* padding: 15px 0; */
     width: 100%;
     width: calc(100% - 50px);
-    margin-left: auto;
+    margin-left: 30px;
     text-align: center;
 }
 
@@ -306,6 +310,7 @@ section {
 
 .bar-chart-main .bar-timings {
     margin-top: 120px;
+    margin-left: -18px;
     position: absolute;
     width: calc(100% - 50px);
     left: 50px;
@@ -401,11 +406,12 @@ section {
 }
 
 .bar-chart-listing {
-    margin-left: 94px;
+    margin-left: 30px;
     display: flex;
-    grid-column-gap: 30px;
+    /* grid-column-gap: 30px; */
     overflow-y: hidden;
 }
+
 
 .bar-chart-listing .appointment-list .user-img {
     flex: 0 0 65px;
@@ -1890,8 +1896,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
     margin-left: 15px;
 }
 
-.customer-name-edit a img{
+.customer-name-edit a img {
     width: 16px;
+    padding-top: 10px;
 }
 
 .memo-text .box{
@@ -2282,6 +2289,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 .booking-body .search-group .dummy-img img{
     filter: brightness(0) invert(1);
+    padding-top: 8px;
 }
 
 .booking-body .search-group .search{
@@ -2289,9 +2297,16 @@ li.ui-timepicker-selected .ui-timepicker-duration,
     border: none;
     background: none;
     position: absolute;
-    bottom: 10px;
-    right: 20px;
+    right: 10px;
+    top: 54px;
+    transform: translate(-50%, -50%);
 }
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    background: none;
+}
+
+
 
 .booking-body .search-group .form-control{
     padding: 0 35px 0 45px;
@@ -2506,6 +2521,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
     height: auto;
     object-fit: inherit;
     border-radius: 0;
+    padding-top: 3px;
 }
 
 .technician-listing h4{
