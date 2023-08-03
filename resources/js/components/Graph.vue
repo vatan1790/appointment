@@ -10,7 +10,7 @@
                   <p>32 Appoinment</p>
               </button>
           </li>
-          <Datelist ></Datelist>
+          <Datelist v-for="day in days" :key="day.id"></Datelist>
          
         </ul>
       </div>
@@ -68,7 +68,8 @@
             </button>
             <span class="numbers green-bg">115’ <span>minutes available</span></span>
             <div class="bars">
-              <Slot :slot="slot" v-for="slot in tech.slots" :key="slot.id"></Slot>
+              <Slot :slot="slot" v-for="(slot,index) in tech.slots" :key="slot.id"></Slot> 
+             
               <!-- <div class="bar" data-bs-toggle="tooltip" data-bs-html="true"  v-for="(slot,index) in tech.slots" :key="index"
                 :data-bs-title=slot.from_time data-bs-placement="left" style="height: 3.10px;margin-top: 0;">
               </div> -->

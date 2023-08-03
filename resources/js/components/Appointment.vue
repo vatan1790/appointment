@@ -26,7 +26,7 @@
           </div>
           <div>
             <ul id="myUL"  v-for="cust in customer" :key="cust.id">
-              <!-- <li><a href="javascript:void(0);"> <label><input type="checkbox" :value=cust.id v-model="from.customerid"/> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li> -->
+              <li><a href="javascript:void(0);"> <label><input type="checkbox" :value=cust.id v-model="from.customerid"/> {{cust.fname}} {{cust.lname}}({{cust.phone}})</label> </a></li>
             </ul>
           </div>
           <div>
@@ -45,10 +45,10 @@
             <div class="service-listing mt-4">
               <h4 class="heading-20-white">Add Service</h4>
               <div class="service-box mt-3" style="display: block;" v-for="temps in tempservices" :key="temps.id">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center parent-div" onclick="toggleColor(this)">
                   <figure>
                     <img src="images/manicure.png" alt="Package">
-                      <!-- <input type="checkbox" checked: true  :value="temps.service_id" v-model="from.services" > -->
+                      <input type="checkbox" checked: true  :value="temps.service_id" v-model="from.services" style="display: none;" >
                     <a href="#" @click="deleteItem(temps.id)" class="close"><img src="images/cross-yellow.svg" height="12" alt="Remove"></a>
                   </figure>
                   <div class="text">
@@ -96,7 +96,7 @@
                   <div class="d-flex align-items-center">
                     <figure><img src="images/manicure.png" alt="Package"></figure>
                     <div class="text">
-                      <!-- <input type="checkbox" name="check"  :id="'input-age-'+catservice.id" :value="catservice.id" v-model="checkedServices"> -->
+                      <input type="checkbox" name="check"  :id="'input-age-'+catservice.id" :value="catservice.id" v-model="checkedServices">
                       <h4>{{catservice.name}}</h4>
                       <!-- <span>2</span> -->
                       <p>M1 - {{catservice.duration}}’</p>

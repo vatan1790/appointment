@@ -91,7 +91,7 @@
                 </li>
               </ul>
               <a class="history-search-btn collapsed ms-auto" data-bs-toggle="collapse" href="#searchCollapse"
-                role="button" aria-expanded="false" aria-controls="searchCollapse"><img src="images/search.svg"
+                role="button" aria-expanded="false" aria-controls="searchCollapse"><img style="margin-top:12px;" src="images/search.svg"
                   height="14" alt="Search"></a>
             </div>
 
@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="dial-pad text-center">
-                  <a href="#"><img src="images/dial-pad.svg" height="28" alt="Dial Pad"></a>
+                  <a href="#"><img style="margin-top:20px;" src="images/dial-pad.svg" height="28" alt="Dial Pad"></a>
                   <p>Dial pad</p>
                 </div>
               </div>
@@ -377,11 +377,11 @@
             <div class="search-form">
               <form action="">
                 <input type="text" placeholder="Search" class="form-control">
-                <button class="btn"><img src="images/search.svg" alt="Search"></button>
+                <button class="btn"><img style="padding-top:5px;" src="images/search.svg" alt="Search"></button>
               </form>
             </div>
             <a href="#" class="service-toggle ms-auto" data-bs-toggle="modal" data-bs-target="#newpackageModal"><img
-                src="images/toggle-yellow.svg" alt="Toggle"></a>
+                style="padding-top:13px;" src="images/toggle-yellow.svg" alt="Toggle"></a>
           </div>
           
           <div class="categories-list d-flex align-items-center">
@@ -464,7 +464,7 @@
                 <p>$</p>
               </div>
               <div class="form-group">
-                <textarea class="form-control" placeholder="Description" name="description" v-model="form.description"></textarea>
+                <textarea class="form-control" placeholder="Description" name="description" v-model="form.description" style="padding: 15px 0 120px 12px; overflow: hidden; border-radius: 15px;"></textarea>
               </div>
               <label class="c-checkbox">
                 <input type="checkbox" class="d-none" checked value="1" name="status"  v-model="form.status">
@@ -628,7 +628,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button style="margin-top:10px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="heading">
             <h3><img src="images/technician.svg" alt="Technician">Technician</h3>
           </div>
@@ -659,7 +659,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button style="margin-top:12px;"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="heading">
             <h3><img  src="images/technician.svg" alt="Create Technician">Create Technician</h3>
           </div>
@@ -705,36 +705,99 @@
                       <div class="hours mt-2 invisible-checkboxes" >
                          <input type="checkbox" name="rGroup" value="mon|01:00:00" v-model="form.workingTime" id="r1"  checked/>
                          <label class="checkbox-alias" for="r1">01:00</label>
+                         <input type="checkbox" name="rGroup" value="mon|01:00:00" v-model="form.workingTime" id="r1"  checked/>
+                         <label class="checkbox-alias" for="r1">01:30</label>
                           <input type="checkbox" name="rGroup" value="mon|2:00:00" v-model="form.workingTime" id="r2"/>
                           <label class="checkbox-alias" for="r2">02:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|2:00:00" v-model="form.workingTime" id="r2"/>
+                          <label class="checkbox-alias" for="r2">02:30</label>
                           <input type="checkbox" name="rGroup" value="mon|3:00:00" v-model="form.workingTime" id="r3"/>
                          <label class="checkbox-alias" for="r3">03:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|3:00:00" v-model="form.workingTime" id="r3"/>
+                         <label class="checkbox-alias" for="r3">03:30</label>
                           <input type="checkbox" name="rGroup" value="mon|4:00:00" v-model="form.workingTime" id="r4"/>
                           <label class="checkbox-alias" for="r4">04:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|4:00:00" v-model="form.workingTime" id="r4"/>
+                          <label class="checkbox-alias" for="r4">04:30</label>
                           <input type="checkbox" name="rGroup" value="mon|5:00:00" v-model="form.workingTime" id="r5"/>
                          <label class="checkbox-alias" for="r5">05:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|5:00:00" v-model="form.workingTime" id="r5"/>
+                         <label class="checkbox-alias" for="r5">05:30</label>
                           <input type="checkbox" name="rGroup" value="mon|6:00:00" v-model="form.workingTime" id="r6"/>
                           <label class="checkbox-alias" for="r6">06:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|6:00:00" v-model="form.workingTime" id="r6"/>
+                          <label class="checkbox-alias" for="r6">06:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|6:00:00" v-model="form.workingTime" id="r6"/>
+                          <label class="checkbox-alias" for="r6">07:00</label>
                           <input type="checkbox" name="rGroup" value="mon|7:00:00" v-model="form.workingTime" id="r7"/>
-                         <label class="checkbox-alias" for="r7">07:00</label>
+                         <label class="checkbox-alias" for="r7">07:30</label>
                           <input type="checkbox" name="rGroup" value="mon|8:00:00" v-model="form.workingTime" id="r8"/>
                           <label class="checkbox-alias" for="r8">08:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|8:00:00" v-model="form.workingTime" id="r8"/>
+                          <label class="checkbox-alias" for="r8">08:30</label>
                           <input type="checkbox" name="rGroup" value="mon|9:00:00" v-model="form.workingTime" id="r9"/>
                          <label class="checkbox-alias" for="r9">09:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|9:00:00" v-model="form.workingTime" id="r9"/>
+                         <label class="checkbox-alias" for="r9">09:30</label>
                           <input type="checkbox" name="rGroup" value="mon|10:00:00" v-model="form.workingTime" id="r10"/>
                           <label class="checkbox-alias" for="r10">10:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|10:00:00" v-model="form.workingTime" id="r10"/>
+                          <label class="checkbox-alias" for="r10">10:30</label>
                           <input type="checkbox" name="rGroup" value="mon|11:00:00" v-model="form.workingTime" id="r11"/>
                          <label class="checkbox-alias" for="r11">11:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|11:00:00" v-model="form.workingTime" id="r11"/>
+                         <label class="checkbox-alias" for="r11">11:30</label>
                           <input type="checkbox" name="rGroup" value="mon|12:00:00" v-model="form.workingTime" id="r12"/>
                           <label class="checkbox-alias" for="r12">12:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|12:00:00" v-model="form.workingTime" id="r12"/>
+                          <label class="checkbox-alias" for="r12">12:30</label>
                           <input type="checkbox" name="rGroup" value="mon|13:00:00" v-model="form.workingTime" id="r13"/>
                          <label class="checkbox-alias" for="r13">13:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|13:00:00" v-model="form.workingTime" id="r13"/>
+                         <label class="checkbox-alias" for="r13">13:30</label>
                           <input type="checkbox" name="rGroup" value="mon|14:00:00" v-model="form.workingTime" id="r14"/>
                           <label class="checkbox-alias" for="r14">14:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|14:00:00" v-model="form.workingTime" id="r14"/>
+                          <label class="checkbox-alias" for="r14">14:30</label>
                           <input type="checkbox" name="rGroup" value="mon|15:00:00" v-model="form.workingTime" id="r15"/>
                          <label class="checkbox-alias" for="r15">15:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|15:00:00" v-model="form.workingTime" id="r15"/>
+                         <label class="checkbox-alias" for="r15">15:30</label>
                           <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
                           <label class="checkbox-alias" for="r16">16:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">16:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">17:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">17:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">18:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">18:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">19:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">19:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">20:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">20:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">21:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">21:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">22:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">22:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">23:00</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">23:30</label>
+                          <input type="checkbox" name="rGroup" value="mon|16:00:00" v-model="form.workingTime" id="r16"/>
+                          <label class="checkbox-alias" for="r16">12:00</label>
+
                       </div>
                   </div>
                 <div class="tab-pane fade " id="tue">
@@ -961,7 +1024,7 @@
               <ul class="avoid-service-list">
                 <li v-for="temps in tempservices" :key="temps.id">
                   <a href="#" class="remove"><img src="images/cross-yellow.svg" height="8" @click="deleteItem(temps.id)" alt="Remove"></a>
-                  <input type="checkbox" checked: true  :value="temps.id" v-model="form.services" >
+                  <!-- <input type="checkbox" checked: true  :value="temps.id" v-model="form.services" > -->
                   <p>{{temps.service.name}}</p>
                 </li>
                
@@ -976,7 +1039,7 @@
               <ul class="avoid-service-list">
                 <li class="w-100" v-for="(sched) in schedules" :key="sched.id">
                   <a href="#" class="remove"><img src="images/cross-yellow.svg" height="8" @click="deleteSchedule(sched.id)" alt="Remove"></a>
-                  <input type="checkbox"  :value="sched.id"  checked: true v-model="form.schedules" >
+                  <!-- <input type="checkbox"  :value="sched.id"  checked: true v-model="form.schedules" > -->
                   <p>Sat, Sep 16 <span class="float-end">{{sched.from_time }}-{{sched.to_time}}</span></p>
                 </li>
               </ul>
@@ -1009,7 +1072,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button style="margin-top:12px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="heading">
             <h3><img src="images/technician.svg" alt="Technician">Technician</h3>
           </div>
@@ -1023,7 +1086,7 @@
             </div>
 
             <div class="main_check">
-                  <div class="main_check0" v-for="(service,index) in services" :key="index">
+                  <div class="main_check0" style="margin:15px 0px;" v-for="(service,index) in services" :key="index">
                       <input type="checkbox" name="check"  :id="'input-age-'+service.id" :value="service.id" v-model="checkedServices">
                       <label :for="'input-age-'+service.id">{{ service.name }}</label>
                   </div>
@@ -1082,7 +1145,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button style="margin-top:12px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="heading">
             <h3><img src="images/technician.svg" alt="Technician">Technician</h3>
           </div>
@@ -1104,6 +1167,53 @@
                 <label class="input-label text-center">To</label>
                 <input type="time" class="form-control time-picker" name="to_time" v-model="form.to_time" placeholder="HH:MM">
               </div>
+            </div>
+
+            <div class="">
+                
+<ul class="weekdays">
+  <li>Mon</li>
+  <li>Tue</li>
+  <li>Wed</li>
+  <li>Thu</li>
+  <li>Fri</li>
+  <li>Sat</li>
+  <li>Sun</li>
+</ul>
+
+<ul class="days">  
+  <li>01</li>
+  <li>02</li>
+  <li>03</li>
+  <li>04</li>
+  <li>05</li>
+  <li>06</li>
+  <li>07</li>
+  <li>08</li>
+  <li>09</li>
+  <li>10</li>
+  <li>11</li>
+  <li>12</li>
+  <li>13</li>
+  <li>14</li>
+  <li>15</li>
+  <li>16</li>
+  <li>17</li>
+  <li>18</li>
+  <li>19</li>
+  <li>20</li>
+  <li>21</li>
+  <li>22</li>
+  <li>23</li>
+  <li>24</li>
+  <li>25</li>
+  <li>26</li>
+  <li>27</li>
+  <li>28</li>
+  <li>29</li>
+  <li>30</li>
+  <li>31</li>
+</ul>
             </div>
 
             <div class="modal-btns text-center">
@@ -1166,7 +1276,7 @@
             <div class="search-form">
               <form action="">
                 <input type="text" placeholder="Search" class="form-control">
-                <button class="btn"><img src="images/search.svg" alt="Search"></button>
+                <button class="btn"><img style="padding-top:5px;" src="images/search.svg" alt="Search"></button>
               </form>
             </div>
             <a href="#" class="customer-add-btn ms-auto" data-bs-toggle="modal" data-bs-target="#addCustomerModal">+</a>

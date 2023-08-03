@@ -6,7 +6,8 @@
 .owl-carousel,
 .owl-carousel .owl-item {
     -webkit-tap-highlight-color: transparent;
-    position: relative
+    position: relative;
+    margin-bottom: 0px;
 }
 
 .owl-carousel {
@@ -63,9 +64,12 @@
     display: none
 }
 
-.no-js .owl-carousel,
-.owl-carousel.owl-loaded {
-    display: block
+.no-js .owl-carousel, .owl-carousel.owl-loaded {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row-reverse;
+    overflow-x: scroll;
 }
 
 .owl-carousel .owl-dot,
